@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class Onderwerpservice {
@@ -21,5 +22,9 @@ public class Onderwerpservice {
 
     public Onderwerp voegOnderwerpToe(Onderwerp tempOnderwerp) {
         return onderwerprepository.save(tempOnderwerp);
+    }
+
+    public Onderwerp getOnderwerpById(int id) {
+        return onderwerprepository.findById(id).orElseThrow(() -> new Onderwerpnotfoundexception(id));
     }
 }

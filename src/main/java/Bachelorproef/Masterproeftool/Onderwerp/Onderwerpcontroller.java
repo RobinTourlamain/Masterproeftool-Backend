@@ -22,9 +22,15 @@ public class Onderwerpcontroller {
         return new ResponseEntity<>("Hello", HttpStatus.OK);
     }
 
+
     @GetMapping(path = "/onderwerpen")
     public List<Onderwerp> getOnderwerpen(){
         return onderwerpservice.getAlleOnderwerpen();
+    }
+    @GetMapping(path = "/onderwerpen/{id}")
+    Onderwerp getOnderwerpById(@PathVariable int id){
+        return onderwerpservice.getOnderwerpById(id);
+
     }
     @PostMapping(path = "/addonderwerp") //voeg onderwerp toe
     Onderwerp addOnderwerp(@RequestBody Onderwerp tempOnderwerp){
