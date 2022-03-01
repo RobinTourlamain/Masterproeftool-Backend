@@ -22,7 +22,6 @@ public class Onderwerpcontroller {
         return new ResponseEntity<>("Hello", HttpStatus.OK);
     }
 
-
     @GetMapping(path = "/onderwerpen")
     public List<Onderwerp> getOnderwerpen(){
         return onderwerpservice.getAlleOnderwerpen();
