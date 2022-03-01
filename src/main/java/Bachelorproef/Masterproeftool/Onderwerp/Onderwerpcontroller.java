@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController //controller en responsebody ineen
 public class Onderwerpcontroller {
@@ -14,9 +16,18 @@ public class Onderwerpcontroller {
     this.onderwerpservice = onderwerpservice;
     }
 
-    @GetMapping(path = "/")  //testmapping
+    @GetMapping(path = "/hello")  //testmapping
     //@ResponseBody                   //String gaat rechtstreeks naar http body
     public ResponseEntity<String> sayHello(){
         return new ResponseEntity<>("Hello", HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/onderwerpen")
+    public List<Onderwerp> getOnderwerpen(){
+        return onderwerpservice.getAlleOnderwerpen();
+    }
+    @PostMapping(path = "/addonderwerp") //voeg onderwerp toe
+    public String addOnderwerp(){
+        return "Succes!";
     }
 }
