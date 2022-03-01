@@ -27,4 +27,20 @@ public class Onderwerpservice {
     public Onderwerp getOnderwerpById(int id) {
         return onderwerprepository.findById(id).orElseThrow(() -> new Onderwerpnotfoundexception(id));
     }
+
+    public Onderwerp vervangOnderwerp(Onderwerp temponderwerp, int id) {
+        return onderwerprepository.findById(id)
+                .map(onderwerp -> {
+                    onderwerp.setName(temponderwerp.getName());
+                    return onderwerprepository.save(onderwerp);
+                })
+                .orElseGet(() -> {
+                    temponderwerp.setId(id);
+                    return onderwerprepository.save(temponderwerp);
+                });
+    }
+
+    public void deleteOnderwerp(int id) {
+        onderwerprepository.deleteById(id);
+    }
 }
