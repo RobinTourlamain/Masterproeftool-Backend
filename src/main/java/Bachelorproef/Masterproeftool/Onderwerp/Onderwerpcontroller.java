@@ -27,7 +27,7 @@ public class Onderwerpcontroller {
         return onderwerpservice.getAlleOnderwerpen();
     }
     @PostMapping(path = "/addonderwerp") //voeg onderwerp toe
-    public String addOnderwerp(){
-        return "Succes!";
+    Onderwerp addOnderwerp(@RequestBody Onderwerp tempOnderwerp){
+        return onderwerpservice.voegOnderwerpToe(tempOnderwerp);
     }
 }

@@ -26,9 +26,11 @@ public class Onderwerp {
     }
 
     public String getName(){
-        return name;
+        return this.name;
     }
     public void setName(String name){
         this.name = name;
     }
+    public int getId(){return this.id;}
+    public void setId(int i){this.id = i;}
 }
