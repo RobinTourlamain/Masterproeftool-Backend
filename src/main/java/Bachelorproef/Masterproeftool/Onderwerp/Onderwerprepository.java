@@ -1,4 +1,4 @@
-package Onderwerp;
+package Bachelorproef.Masterproeftool.Onderwerp;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

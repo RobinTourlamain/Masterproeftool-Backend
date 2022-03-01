@@ -1,4 +1,4 @@
-package Onderwerp;
+package Bachelorproef.Masterproeftool.Onderwerp;
 
 import javax.persistence.*;
 

@@ -1,4 +1,4 @@
-package Onderwerp;
+package Bachelorproef.Masterproeftool.Onderwerp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,14 +1,12 @@
-package Onderwerp;
+package Bachelorproef.Masterproeftool.Onderwerp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
 @CrossOrigin(origins = "http://localhost:3000")
-@RestController
+@RestController //controller en responsebody ineen
 public class Onderwerpcontroller {
     private final Onderwerpservice onderwerpservice;
     @Autowired
