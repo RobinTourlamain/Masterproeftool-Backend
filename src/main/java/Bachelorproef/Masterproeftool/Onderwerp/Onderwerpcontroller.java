@@ -26,8 +26,20 @@ public class Onderwerpcontroller {
     public List<Onderwerp> getOnderwerpen(){
         return onderwerpservice.getAlleOnderwerpen();
     }
-    @PostMapping(path = "/addonderwerp") //voeg onderwerp toe in json
+    @GetMapping(path = "/onderwerpen/{id}")
+    Onderwerp getOnderwerpById(@PathVariable int id){
+        return onderwerpservice.getOnderwerpById(id);
+    }
+    @PutMapping(path = "/onderwerpen/{id}")
+    Onderwerp vervangOnderwerp(@RequestBody Onderwerp temponderwerp, @PathVariable int id){
+        return onderwerpservice.vervangOnderwerp(temponderwerp, id);
+    }
+    @PostMapping(path = "/addonderwerp") //voeg onderwerp toe
     Onderwerp addOnderwerp(@RequestBody Onderwerp tempOnderwerp){
         return onderwerpservice.voegOnderwerpToe(tempOnderwerp);
+    }
+    @DeleteMapping(path = "/onderwerpen/{id}")
+    void deleteOnderwerp(@PathVariable int id) {
+        onderwerpservice.deleteOnderwerp(id);
     }
 }
