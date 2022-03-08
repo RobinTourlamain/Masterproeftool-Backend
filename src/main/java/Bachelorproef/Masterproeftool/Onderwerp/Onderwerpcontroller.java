@@ -26,7 +26,7 @@ public class Onderwerpcontroller {
     public List<Onderwerp> getOnderwerpen(){
         return onderwerpservice.getAlleOnderwerpen();
     }
-    @PostMapping(path = "/addonderwerp") //voeg onderwerp toe
+    @PostMapping(path = "/addonderwerp") //voeg onderwerp toe in json
     Onderwerp addOnderwerp(@RequestBody Onderwerp tempOnderwerp){
         return onderwerpservice.voegOnderwerpToe(tempOnderwerp);
     }
