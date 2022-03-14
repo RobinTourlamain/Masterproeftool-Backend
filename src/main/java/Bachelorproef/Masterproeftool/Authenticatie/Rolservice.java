@@ -2,13 +2,19 @@ package Bachelorproef.Masterproeftool.Authenticatie;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service @RequiredArgsConstructor @Transactional @Slf4j
-public class Rolservice {
+public class Rolservice implements UserDetailsService {
     private final Rolrepository rolrepository;  //in orde door @RequiredArgsConstructor tag, kan ook met @Autowire
     private final Gebruikerservice gebruikerservice;
 
@@ -35,5 +41,21 @@ public class Rolservice {
 
     public List<Gebruiker> getGebruikers(){
         return gebruikerservice.findAllGebruikers();
+    }
+
+    //Userdetailservice
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Gebruiker gebruiker = gebruikerservice.findByUsername(username);
+        if(gebruiker == null){
+            log.error("User not found");
+            throw new UsernameNotFoundException("User not found");
+        } else{
+            log.info("User found");
+
+        }
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        gebruiker.getRollen().forEach(rol -> {authorities.add(new SimpleGrantedAuthority(rol.getName()));});
+        return new org.springframework.security.core.userdetails.User(gebruiker.getUsername(), gebruiker.getPassword(), authorities); //andere user dan "gebruiker"
     }
 }

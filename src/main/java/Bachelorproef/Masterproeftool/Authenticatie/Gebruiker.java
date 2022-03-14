@@ -19,4 +19,10 @@ public class Gebruiker {
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Rol> rollen = new ArrayList<>();
 
+    public <E> Gebruiker(String name, String username, String password, ArrayList<Rol> rollen) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.rollen = rollen;
+    }
 }
