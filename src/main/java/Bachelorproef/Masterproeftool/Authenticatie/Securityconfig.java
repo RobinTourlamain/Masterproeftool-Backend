@@ -33,7 +33,7 @@ public class Securityconfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.setFilterProcessesUrl("/login");                 //hier pad bepalen om login naar te sturen
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/auth/**").permitAll();   //geen authenticatie op dit pad DOE DIT MET LOGINPAD
+        http.authorizeRequests().antMatchers("/auth/**", "/auth/refreshtoken").permitAll();   //geen authenticatie op dit pad DOE DIT MET LOGINPAD
         http.authorizeRequests().antMatchers(GET, "/onderwerpen").hasAnyAuthority("Student");
         http.authorizeRequests().anyRequest().authenticated();                      //doe permitAll() om niet te moeten inloggen
         http.addFilter(customAuthenticationFilter);
