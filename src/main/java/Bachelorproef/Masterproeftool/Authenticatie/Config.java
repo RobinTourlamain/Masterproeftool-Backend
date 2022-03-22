@@ -25,6 +25,7 @@ class Config {
             log.info("Preloading " + rolservice.saveGebruiker(new Gebruiker( "Admin", "Admin", "root", new ArrayList<>())));
 
             rolservice.addRolToGebruiker("Admin", "Admin");
+            rolservice.addRolToGebruiker("Admin", "Student");
             rolservice.addRolToGebruiker("Robin", "Student");
         };
     }
