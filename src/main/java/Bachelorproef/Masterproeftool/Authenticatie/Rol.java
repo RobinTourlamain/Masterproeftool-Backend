@@ -18,5 +18,11 @@ public class Rol {
 
     public Rol(String name) {
         this.name = name;
+        if (name.equalsIgnoreCase("Admin")) {
+            id = 1;
+        }
+        else if (name.equalsIgnoreCase("Student")) {
+            id = 2;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package Bachelorproef.Masterproeftool.Authenticatie.Filter;
 
+import Bachelorproef.Masterproeftool.Authenticatie.Rol;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,10 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -61,7 +59,18 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .sign(algorithm);
 //        response.setHeader("acces_token", acces_token);
 //        response.setHeader("refresh_token", refresh_token);
+        ArrayList<Long> rollen_id = new ArrayList<>();
+        Collection<String> rollen = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        for (String naam: rollen) {
+            Rol nieuweRol = new Rol(naam);
+            rollen_id.add(nieuweRol.getId());
+        }
+        String roles = String.valueOf(rollen_id.get(0));
+        for (int i = 1; i < rollen_id.size(); i++) {
+            roles +="," + rollen_id.get(i);
+        }
         Map<String, String> tokens = new HashMap<>();
+        tokens.put("roles", roles);
         tokens.put("acces_token", acces_token);
         tokens.put("refresh_token", refresh_token);
         response.setContentType(APPLICATION_JSON_VALUE);
