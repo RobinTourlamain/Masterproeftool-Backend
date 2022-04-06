@@ -1,11 +1,15 @@
 package Bachelorproef.Masterproeftool.Onderwerp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController //controller en responsebody ineen
@@ -23,8 +27,8 @@ public class Onderwerpcontroller {
     }
 
     @GetMapping(path = "/onderwerpen")
-    public List<Onderwerp> getOnderwerpen(){
-        return onderwerpservice.getAlleOnderwerpen();
+    public List<Onderwerp> getOnderwerpen(@RequestParam Optional<String> sortBy){
+        return onderwerpservice.getAlleOnderwerpen(sortBy.orElse("id"));
     }
     @GetMapping(path = "/onderwerpen/{id}")
     Onderwerp getOnderwerpById(@PathVariable int id){
