@@ -16,7 +16,9 @@ class Dummydata {
         //voeg onderwerpen toe naar wens
         return args -> {
             log.info("Preloading " + repository.save(new Onderwerp("Elektronica")));
+            log.info("Preloading " + repository.save(new Onderwerp("B")));
             log.info("Preloading " + repository.save(new Onderwerp("IT")));
+            log.info("Preloading " + repository.save(new Onderwerp("A")));
         };
     }
 }
