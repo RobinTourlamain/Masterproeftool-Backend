@@ -5,6 +5,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -47,7 +49,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         Algorithm algorithm = Algorithm.HMAC256("secret".getBytes(StandardCharsets.UTF_8));
         String acces_token = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10*60*1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 10*60*1000)) //Staat momenteel op 10 minuten
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);
@@ -59,20 +61,16 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .sign(algorithm);
 //        response.setHeader("acces_token", acces_token);
 //        response.setHeader("refresh_token", refresh_token);
-        ArrayList<Long> rollen_id = new ArrayList<>();
         Collection<String> rollen = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        for (String naam: rollen) {
-            Rol nieuweRol = new Rol(naam);
-            rollen_id.add(nieuweRol.getId());
-        }
-        String roles = String.valueOf(rollen_id.get(0));
-        for (int i = 1; i < rollen_id.size(); i++) {
-            roles +="," + rollen_id.get(i);
-        }
+        String roles = rollen.toString();
         Map<String, String> tokens = new HashMap<>();
         tokens.put("roles", roles);
         tokens.put("acces_token", acces_token);
-        tokens.put("refresh_token", refresh_token);
+        Cookie refreshcookie = new Cookie("refresh_token", refresh_token);
+        refreshcookie.setMaxAge(30*60*10); //Staat momenteel op 30 minuten
+        refreshcookie.setSecure(true);
+        refreshcookie.setHttpOnly(true);
+        response.addCookie(refreshcookie);
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }

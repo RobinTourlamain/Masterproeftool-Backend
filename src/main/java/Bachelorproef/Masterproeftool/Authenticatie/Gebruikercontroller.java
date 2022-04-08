@@ -9,8 +9,10 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -50,10 +52,17 @@ public class Gebruikercontroller {
 
     @GetMapping("/refreshtoken")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String authorizationHeader = request.getHeader(AUTHORIZATION);
-        if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
+        String refresh_token = "null";
+        Cookie[] cookies = request.getCookies();
+        for(Cookie cookie: cookies){
+            if (cookie.getName().equals("refresh_token")){
+                refresh_token = cookie.getValue();
+            }
+        }
+        //String authorizationHeader = request.getHeader(AUTHORIZATION);
+        if(!refresh_token.equals("null")){
             try{
-                String refresh_token = authorizationHeader.substring("Bearer ".length());
+                //String refresh_token = authorizationHeader.substring("Bearer ".length());
                 Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
                 JWTVerifier verifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = verifier.verify(refresh_token);
@@ -62,14 +71,16 @@ public class Gebruikercontroller {
 
                 String acces_token = JWT.create()
                         .withSubject(user.getUsername())
-                        .withExpiresAt(new Date(System.currentTimeMillis() + 10*60*1000))
+                        .withExpiresAt(new Date(System.currentTimeMillis() + 10*60*1000)) //Staat momenteel op 10 minuten
                         .withIssuer(request.getRequestURL().toString())
                         .withClaim("roles", user.getRollen().stream().map(Rol::getName).collect(Collectors.toList()))
                         .sign(algorithm);
 
+                Collection<Rol> rollen = user.getRollen();
+                String roles = rollen.toString();
                 Map<String, String> tokens = new HashMap<>();
+                tokens.put("roles", roles);
                 tokens.put("acces_token", acces_token);
-                tokens.put("refresh_token", refresh_token);
                 response.setContentType(APPLICATION_JSON_VALUE);
                 new ObjectMapper().writeValue(response.getOutputStream(), tokens);
 
@@ -87,6 +98,20 @@ public class Gebruikercontroller {
             throw new RuntimeException("Refresh token is missing");
         }
     }
+
+    @GetMapping("/logout")
+    public void logOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //als de refreshtoken wordt opgeslagen in de databse moet deze ook hier verwijderd worden
+        Cookie[] cookies = request.getCookies();
+        for(Cookie cookie: cookies) {
+            if(cookie.getName().equals("refresh_token")){
+                cookie.setPath("/");
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+            }
+        }
+    }
+
 
 }
 @Data
