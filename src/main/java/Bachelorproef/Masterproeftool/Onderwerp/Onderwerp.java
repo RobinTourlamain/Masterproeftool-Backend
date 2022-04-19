@@ -1,6 +1,10 @@
 package Bachelorproef.Masterproeftool.Onderwerp;
 
+import Bachelorproef.Masterproeftool.Authenticatie.Gebruiker;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "Onderwerpen")
@@ -19,6 +23,8 @@ public class Onderwerp {
     private int id;
     @Column(name = "name")
     private String name;
+    @ManyToMany(mappedBy = "favorites")
+    private Collection<Gebruiker> likes = new ArrayList<>();
 
     public Onderwerp(){}
     public Onderwerp(String name){
