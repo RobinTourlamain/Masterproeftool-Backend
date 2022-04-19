@@ -1,5 +1,7 @@
 package Bachelorproef.Masterproeftool.Authenticatie.Filter;
 
+import Bachelorproef.Masterproeftool.Authenticatie.Gebruiker;
+import Bachelorproef.Masterproeftool.Authenticatie.Gebruikerdetails;
 import Bachelorproef.Masterproeftool.Authenticatie.Rol;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -45,7 +47,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        User user = (User)authResult.getPrincipal();
+        Gebruikerdetails user = (Gebruikerdetails)authResult.getPrincipal();
         Algorithm algorithm = Algorithm.HMAC256("secret".getBytes(StandardCharsets.UTF_8));
         String acces_token = JWT.create()
                 .withSubject(user.getUsername())

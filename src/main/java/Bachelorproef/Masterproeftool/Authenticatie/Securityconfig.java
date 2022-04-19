@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,13 +20,25 @@ import static org.springframework.http.HttpMethod.GET;
 
 @Configuration @EnableWebSecurity @RequiredArgsConstructor
 public class Securityconfig extends WebSecurityConfigurerAdapter {
-    private final UserDetailsService userDetailsService;
+    @Bean
+    public UserDetailsService userDetailsService(){
+        return new Gebruikerdetailsservice();
+    }
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(bCryptPasswordEncoder);
+
+        return authProvider;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+        //auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+        auth.authenticationProvider(authenticationProvider());
     }
 
     @Override

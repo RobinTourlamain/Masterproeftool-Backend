@@ -32,4 +32,8 @@ public class Gebruiker {
         this.password = password;
         this.rollen = rollen;
     }
+
+    public void favoriteOnderwerp(Onderwerp o){
+        favorites.add(o);
+    }
 }
