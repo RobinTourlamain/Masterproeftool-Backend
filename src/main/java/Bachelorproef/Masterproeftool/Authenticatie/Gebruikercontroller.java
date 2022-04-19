@@ -1,5 +1,6 @@
 package Bachelorproef.Masterproeftool.Authenticatie;
 
+import Bachelorproef.Masterproeftool.Onderwerp.Onderwerp;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -9,17 +10,17 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -49,6 +50,23 @@ public class Gebruikercontroller {
         rolservice.addRolToGebruiker(form.getUsername(), form.getRolename());
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping(path = "/favorieten")
+    public ResponseEntity<Collection<Onderwerp>> getFavorites(@RequestBody Gebruiker gebruiker){
+        return ResponseEntity.ok().body(gebruiker.getFavorites());
+    }
+    /////////////////////////////////////////
+    @PostMapping(path = "/addfavoriet")
+    public void favoriteOnderwerp(@RequestBody Onderwerp onderwerp, Principal principal) {
+        gebruikerservice.favoriteOnderwerp(onderwerp, (Gebruiker) principal);
+    }
+
+//    @DeleteMapping(path = "/deletefavoriet/{id}")
+//    Onderwerp deleteFavorietOnderwerp(@PathVariable int id) {
+//        favorieten.remove(favorieten.indexOf(id));
+//        return onderwerpservice.getOnderwerpById(id);
+//    }
+    /////////////////////////////////////////////
 
     @GetMapping("/refreshtoken")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {

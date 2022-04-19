@@ -17,7 +17,6 @@ import java.util.Optional;
 @RestController //controller en responsebody ineen
 public class Onderwerpcontroller {
     private final Onderwerpservice onderwerpservice;
-    private ArrayList<Integer> favorieten = new ArrayList<>();
     @Autowired
     public Onderwerpcontroller(Onderwerpservice onderwerpservice){
     this.onderwerpservice = onderwerpservice;
@@ -49,22 +48,5 @@ public class Onderwerpcontroller {
     @DeleteMapping(path = "/onderwerpen/{id}")
     void deleteOnderwerp(@PathVariable int id) {
         onderwerpservice.deleteOnderwerp(id);
-    }
-
-    @GetMapping(path = "/favorieten")
-    ArrayList<Integer> favorieten(){ //username zal worden meegegeven in body dus moet die hier eruit gehaald worden
-        return favorieten; //momenteel heb ik gwn een lijst aangemaakt voor te testen of mn frontend werkt, uiteindelijk moet dit uit de database gehaald worden
-    }
-
-    @PostMapping(path = "/addfavoriet/{id}")
-    Onderwerp favorietOnderwerp(@PathVariable int id) {
-        favorieten.add(id);
-        return onderwerpservice.getOnderwerpById(id);
-    }
-
-    @DeleteMapping(path = "/deletefavoriet/{id}")
-    Onderwerp deleteFavorietOnderwerp(@PathVariable int id) {
-        favorieten.remove(favorieten.indexOf(id));
-        return onderwerpservice.getOnderwerpById(id);
     }
 }

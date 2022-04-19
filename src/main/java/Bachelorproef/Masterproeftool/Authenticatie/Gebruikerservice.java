@@ -1,5 +1,6 @@
 package Bachelorproef.Masterproeftool.Authenticatie;
 
+import Bachelorproef.Masterproeftool.Onderwerp.Onderwerp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +22,6 @@ public class Gebruikerservice {
         return gebruikerrepository.findByUsername(username);
     }
 
-
     public Gebruiker saveGebruiker(Gebruiker g) {
         g.setPassword(passwordEncoder.encode(g.getPassword()));
         return gebruikerrepository.save(g);
@@ -29,5 +29,9 @@ public class Gebruikerservice {
 
     public List<Gebruiker> findAllGebruikers() {
         return gebruikerrepository.findAll();
+    }
+
+    public void favoriteOnderwerp(Onderwerp onderwerp, Gebruiker g){
+        g.getFavorites().add(onderwerp);
     }
 }
