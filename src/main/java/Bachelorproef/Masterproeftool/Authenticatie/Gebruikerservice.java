@@ -31,7 +31,13 @@ public class Gebruikerservice {
         return gebruikerrepository.findAll();
     }
 
-    public void favoriteOnderwerp(Onderwerp onderwerp, Gebruiker g){
-        g.getFavorites().add(onderwerp);
+    public void favoriteOnderwerp(Gebruiker g, Onderwerp o){
+        g.getFavorites().add(o);
+        gebruikerrepository.save(g);
+    }
+
+    public void deleteFavoriteOnderwerp(Gebruiker g, Onderwerp o) {
+        g.getFavorites().remove(o);
+        gebruikerrepository.save(g);
     }
 }

@@ -1,6 +1,7 @@
 package Bachelorproef.Masterproeftool.Authenticatie;
 
 import Bachelorproef.Masterproeftool.Onderwerp.Onderwerp;
+import Bachelorproef.Masterproeftool.Onderwerp.Onderwerpservice;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -10,7 +11,10 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -30,6 +34,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class Gebruikercontroller {
     private final Gebruikerservice gebruikerservice;
     private final Rolservice rolservice;
+    private final Onderwerpservice onderwerpservice;
 
     @GetMapping("/gebruikers")
     public ResponseEntity<List<Gebruiker>> getGebruikers(){
@@ -52,21 +57,24 @@ public class Gebruikercontroller {
     }
 
     @GetMapping(path = "/favorieten")
-    public ResponseEntity<Collection<Onderwerp>> getFavorites(@RequestBody Gebruiker gebruiker){
-        return ResponseEntity.ok().body(gebruiker.getFavorites());
-    }
-    /////////////////////////////////////////
-    @PostMapping(path = "/addfavoriet")
-    public void favoriteOnderwerp(@RequestBody Onderwerp onderwerp, Principal principal) {
-        gebruikerservice.favoriteOnderwerp(onderwerp, (Gebruiker) principal);
+    public ResponseEntity<Collection<Onderwerp>> getFavorites(Principal principal){
+        Gebruiker g = gebruikerservice.findByUsername(principal.getName());
+        return ResponseEntity.ok().body(g.getFavorites());
     }
 
-//    @DeleteMapping(path = "/deletefavoriet/{id}")
-//    Onderwerp deleteFavorietOnderwerp(@PathVariable int id) {
-//        favorieten.remove(favorieten.indexOf(id));
-//        return onderwerpservice.getOnderwerpById(id);
-//    }
-    /////////////////////////////////////////////
+    @PostMapping(path = "/addfavoriet/{id}")
+    public Onderwerp favoriteOnderwerp(@PathVariable int id, Principal principal) {
+        Onderwerp o = onderwerpservice.getOnderwerpById(id);
+        gebruikerservice.favoriteOnderwerp(gebruikerservice.findByUsername(principal.getName()),o);
+        return o;
+    }
+
+    @DeleteMapping(path = "/deletefavoriet/{id}")
+    public Onderwerp deleteFavoriteOnderwerp(@PathVariable int id, Principal principal) {
+        Onderwerp o = onderwerpservice.getOnderwerpById(id);
+        gebruikerservice.deleteFavoriteOnderwerp(gebruikerservice.findByUsername(principal.getName()),o);
+        return o;
+    }
 
     @GetMapping("/refreshtoken")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
