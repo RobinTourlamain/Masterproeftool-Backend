@@ -15,23 +15,23 @@ class Config {
 
     private static final Logger log = LoggerFactory.getLogger(Config.class);
 
-    @Bean //Dummydata
-    CommandLineRunner initRollen(Rolservice rolservice) {
-        return args -> {
-            log.info("Preloading " + rolservice.saveRol(new Rol("Admin")));
-            log.info("Preloading " + rolservice.saveRol(new Rol( "Student")));
-            log.info("Preloading " + rolservice.saveRol(new Rol("Coordinator")));
-
-            log.info("Preloading " + rolservice.saveGebruiker(new Gebruiker( "Robin","Robin","root", new ArrayList<>())));
-            log.info("Preloading " + rolservice.saveGebruiker(new Gebruiker( "Admin", "Admin", "root", new ArrayList<>())));
-            log.info("Preloading " + rolservice.saveGebruiker(new Gebruiker( "Coordinator","Coordinator","root", new ArrayList<>())));
-
-            rolservice.addRolToGebruiker("Admin", "Admin");
-            rolservice.addRolToGebruiker("Admin", "Student");
-            rolservice.addRolToGebruiker("Robin", "Student");
-            rolservice.addRolToGebruiker("Coordinator", "Coordinator");
-        };
-    }
+//    @Bean //Dummydata
+//    CommandLineRunner initRollen(Rolservice rolservice) {
+//        return args -> {
+//            log.info("Preloading " + rolservice.saveRol(new Rol("Admin")));
+//            log.info("Preloading " + rolservice.saveRol(new Rol( "Student")));
+//            log.info("Preloading " + rolservice.saveRol(new Rol("Coordinator")));
+//
+//            log.info("Preloading " + rolservice.saveGebruiker(new Gebruiker( "Robin","Robin","root", new ArrayList<>())));
+//            log.info("Preloading " + rolservice.saveGebruiker(new Gebruiker( "Admin", "Admin", "root", new ArrayList<>())));
+//            log.info("Preloading " + rolservice.saveGebruiker(new Gebruiker( "Coordinator","Coordinator","root", new ArrayList<>())));
+//
+//            rolservice.addRolToGebruiker("Admin", "Admin");
+//            rolservice.addRolToGebruiker("Admin", "Student");
+//            rolservice.addRolToGebruiker("Robin", "Student");
+//            rolservice.addRolToGebruiker("Coordinator", "Coordinator");
+//        };
+//    }
 
     @Bean
     PasswordEncoder passwordEncoder(){

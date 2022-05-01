@@ -11,15 +11,15 @@ class Dummydata {
 
     private static final Logger log = LoggerFactory.getLogger(Dummydata.class);
 
-    @Bean
-    CommandLineRunner initDatabase(Onderwerprepository repository) {
-        //voeg onderwerpen toe naar wens
-        return args -> {
-            log.info("Preloading " + repository.save(new Onderwerp("Elektronica")));
-            log.info("Preloading " + repository.save(new Onderwerp("B")));
-            log.info("Preloading " + repository.save(new Onderwerp("IT")));
-            log.info("Preloading " + repository.save(new Onderwerp("A")));
-            log.info("Preloading " + repository.save(new Onderwerp("C")));
-        };
-    }
+//    @Bean
+//    CommandLineRunner initDatabase(Onderwerprepository repository) {
+//        //voeg onderwerpen toe naar wens
+//        return args -> {
+//            log.info("Preloading " + repository.save(new Onderwerp("Elektronica")));
+//            log.info("Preloading " + repository.save(new Onderwerp("B")));
+//            log.info("Preloading " + repository.save(new Onderwerp("IT")));
+//            log.info("Preloading " + repository.save(new Onderwerp("A")));
+//            log.info("Preloading " + repository.save(new Onderwerp("C")));
+//        };
+//    }
 }
