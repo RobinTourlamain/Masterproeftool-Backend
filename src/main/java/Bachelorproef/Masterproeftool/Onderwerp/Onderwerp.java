@@ -23,8 +23,13 @@ public class Onderwerp {
     private int id;
     @Column(name = "name")
     private String name;
+
     @ManyToMany(mappedBy = "favorites")
     private Collection<Gebruiker> likes = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "selection")
+    private Collection<Gebruiker> selected = new ArrayList<>();
+
     @Column(name = "hideObject")
     private boolean hideObject;
 

@@ -76,6 +76,20 @@ public class Gebruikercontroller {
         return o;
     }
 
+    @PostMapping(path = "/addselection/{i1}/{i2}/{i3}")
+    public void addSelection(@PathVariable int i1,@PathVariable int i2,@PathVariable int i3, Principal principal){
+        ArrayList<Integer> ids = new ArrayList();
+        ids.add(i1);
+        ids.add(i2);
+        ids.add(i3);
+        gebruikerservice.selectOnderwerpen(gebruikerservice.findByUsername(principal.getName()), onderwerpservice.getOnderwerpenById(ids));
+    }
+
+    @GetMapping(path = "/selection")
+    public Collection<Onderwerp> getSelection(Principal principal){
+        return gebruikerservice.getSelection(gebruikerservice.findByUsername(principal.getName()));
+    }
+
     @GetMapping("/refreshtoken")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String refresh_token = "null";

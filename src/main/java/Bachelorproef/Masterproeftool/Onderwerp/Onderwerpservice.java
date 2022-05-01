@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +22,10 @@ public class Onderwerpservice {
 
     public Onderwerp getOnderwerpById(int id) {
         return onderwerprepository.findById(id).orElseThrow(() -> new Onderwerpnotfoundexception(id));
+    }
+
+    public List getOnderwerpenById(ArrayList ids){
+        return onderwerprepository.findAllById(ids);
     }
 
     public Onderwerp vervangOnderwerp(Onderwerp temponderwerp, int id) {

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -40,4 +42,14 @@ public class Gebruikerservice {
         g.getFavorites().remove(o);
         gebruikerrepository.save(g);
     }
+
+    public void selectOnderwerpen(Gebruiker g, List l) {
+        g.getSelection().addAll(l);
+        gebruikerrepository.save(g);
+    }
+
+    public Collection<Onderwerp> getSelection(Gebruiker g){
+        return g.getSelection();
+    }
+
 }
