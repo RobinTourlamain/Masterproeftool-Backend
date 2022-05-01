@@ -1,23 +1,24 @@
 package Bachelorproef.Masterproeftool.Authenticatie;
 
 import Bachelorproef.Masterproeftool.Onderwerp.Onderwerp;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class Gebruikerservice {
     private final Gebruikerrepository gebruikerrepository;
     private final PasswordEncoder passwordEncoder;
+    private final Rolrepository rolrepository;
     @Autowired
-    public Gebruikerservice(PasswordEncoder p,Gebruikerrepository g){
+    public Gebruikerservice(PasswordEncoder p, Gebruikerrepository g, Rolrepository rolrepository){
         this.gebruikerrepository = g;
         this.passwordEncoder = p;
+        this.rolrepository = rolrepository;
     }
 
     public Gebruiker findByUsername(String username){
@@ -44,6 +45,7 @@ public class Gebruikerservice {
     }
 
     public void selectOnderwerpen(Gebruiker g, List l) {
+        g.getSelection().clear();
         g.getSelection().addAll(l);
         gebruikerrepository.save(g);
     }
@@ -52,4 +54,11 @@ public class Gebruikerservice {
         return g.getSelection();
     }
 
+    public List<Gebruiker> findAllPromotoren() {
+        return gebruikerrepository.findByRollenContaining(rolrepository.findByName("Promotor"));
+    }
+
+    public Optional<Gebruiker> findById(int promotorid) {
+        return gebruikerrepository.findById((long) promotorid);
+    }
 }

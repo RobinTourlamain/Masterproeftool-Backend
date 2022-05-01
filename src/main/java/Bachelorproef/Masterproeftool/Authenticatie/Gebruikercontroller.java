@@ -152,6 +152,17 @@ public class Gebruikercontroller {
         }
     }
 
+    @GetMapping("/promotoren")//gebruik dit om keuze tussen promotoren weer te geven
+    public ResponseEntity<List<Gebruiker>> getPromotoren(){
+        return ResponseEntity.ok().body(gebruikerservice.findAllPromotoren());
+    }
+
+    @PostMapping(path = "/test")
+    public Onderwerp test(){
+        return  onderwerpservice.voegOnderwerpToeKantEnKlaar(new Onderwerp("Elektronica","doelgroep",gebruikerservice.findByUsername("Promotor"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true));
+    }
+
+
 
 }
 @Data

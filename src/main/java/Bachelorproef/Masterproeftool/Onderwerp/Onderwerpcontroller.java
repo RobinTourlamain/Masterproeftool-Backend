@@ -41,9 +41,9 @@ public class Onderwerpcontroller {
     Onderwerp vervangOnderwerp(@RequestBody Onderwerp temponderwerp, @PathVariable int id){
         return onderwerpservice.vervangOnderwerp(temponderwerp, id);
     }
-    @PostMapping(path = "/addonderwerp") //voeg onderwerp toe
-    Onderwerp addOnderwerp(@RequestBody Onderwerp tempOnderwerp){
-        return onderwerpservice.voegOnderwerpToe(tempOnderwerp);
+    @PostMapping(path = "/addonderwerp/{promotorid}") //voeg onderwerp toe
+    Onderwerp addOnderwerp(@RequestBody Onderwerp tempOnderwerp,@PathVariable int promotorid){
+        return onderwerpservice.voegOnderwerpToe(tempOnderwerp, promotorid);
     }
     @DeleteMapping(path = "/onderwerpen/{id}")
     void deleteOnderwerp(@PathVariable int id) {

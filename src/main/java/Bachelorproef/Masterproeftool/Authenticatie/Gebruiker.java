@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Entity @Data @NoArgsConstructor @AllArgsConstructor
+@Entity @NoArgsConstructor @AllArgsConstructor
 public class Gebruiker {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,5 +43,37 @@ public class Gebruiker {
 
     public void favoriteOnderwerp(Onderwerp o){
         favorites.add(o);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Collection<Rol> getRollen() {
+        return rollen;
+    }
+
+    public Collection<Onderwerp> getFavorites() {
+        return favorites;
+    }
+
+    public Collection<Onderwerp> getSelection() {
+        return selection;
+    }
+
+    public void setPassword(String encode) {
+        this.password = encode;
     }
 }
