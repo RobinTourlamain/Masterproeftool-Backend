@@ -49,4 +49,18 @@ public class Onderwerpcontroller {
     void deleteOnderwerp(@PathVariable int id) {
         onderwerpservice.deleteOnderwerp(id);
     }
+    @PostMapping(path = "/voegToe/{id}")
+    public Onderwerp voegToe(@PathVariable int id) {
+        Onderwerp temp = onderwerpservice.getOnderwerpById(id);
+        temp.setHideObject(false);
+        temp = onderwerpservice.updateHideObject(temp);
+        return temp;
+    }
+    @DeleteMapping(path = "/verwijder/{id}")
+    public Onderwerp verwijder(@PathVariable int id) {
+        Onderwerp temp = onderwerpservice.getOnderwerpById(id);
+        temp.setHideObject(true);
+        temp = onderwerpservice.updateHideObject(temp);
+        return temp;
+    }
 }

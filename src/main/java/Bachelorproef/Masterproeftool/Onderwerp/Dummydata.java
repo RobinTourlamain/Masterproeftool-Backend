@@ -19,6 +19,7 @@ class Dummydata {
             log.info("Preloading " + repository.save(new Onderwerp("B")));
             log.info("Preloading " + repository.save(new Onderwerp("IT")));
             log.info("Preloading " + repository.save(new Onderwerp("A")));
+            log.info("Preloading " + repository.save(new Onderwerp("C")));
         };
     }
 }

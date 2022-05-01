@@ -42,4 +42,8 @@ public class Onderwerpservice {
     public List<Onderwerp> getAlleOnderwerpen(String id) {
         return onderwerprepository.findAll(Sort.by(Sort.Direction.ASC, id));
     }
+
+    public Onderwerp updateHideObject(Onderwerp onderwerp) {
+        return onderwerprepository.save(onderwerp);
+    }
 }

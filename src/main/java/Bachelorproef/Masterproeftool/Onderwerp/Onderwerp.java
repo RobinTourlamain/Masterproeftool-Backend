@@ -25,10 +25,13 @@ public class Onderwerp {
     private String name;
     @ManyToMany(mappedBy = "favorites")
     private Collection<Gebruiker> likes = new ArrayList<>();
+    @Column(name = "hideObject")
+    private boolean hideObject;
 
     public Onderwerp(){}
     public Onderwerp(String name){
         this.name = name;
+        this.hideObject = true;
     }
 
     public String getName(){
@@ -39,4 +42,6 @@ public class Onderwerp {
     }
     public int getId(){return this.id;}
     public void setId(int i){this.id = i;}
+    public boolean isHideObject() {return hideObject;}
+    public void setHideObject(boolean hide) {this.hideObject = hide;}
 }
