@@ -53,7 +53,7 @@ public class Phaseservice {
             return phaserepository.queryById(1);
         }
         else{
-            return new Phases();
+            return new Phases(LocalDateTime.now(),LocalDateTime.now(),LocalDateTime.now(),LocalDateTime.now());
         }
     }
 }
