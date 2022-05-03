@@ -159,7 +159,10 @@ public class Gebruikercontroller {
 
     @PostMapping(path = "/test")
     public Onderwerp test(){
-        return  onderwerpservice.voegOnderwerpToeKantEnKlaar(new Onderwerp("Elektronica","doelgroep",gebruikerservice.findByUsername("Promotor"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true));
+        ArrayList<String> di = new ArrayList<String>();
+        di.add("testdiscipline");
+        di.add("test2");
+        return  onderwerpservice.voegOnderwerpToeKantEnKlaar(new Onderwerp("lijsttest","doelgroep",gebruikerservice.findByUsername("Coordinator"),"email","phone",1,"Beschrijving",di,new ArrayList<String>(),true));
     }
 
 

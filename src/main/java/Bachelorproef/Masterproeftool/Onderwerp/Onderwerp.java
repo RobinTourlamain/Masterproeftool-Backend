@@ -39,9 +39,11 @@ public class Onderwerp {
     private int capacity;
     private String description;
 
-    @Transient
+    @ElementCollection
+    @Column(name = "disciplines")
     private Collection<String> disciplines = new ArrayList<>();
-    @Transient
+    @ElementCollection
+    @Column(name="trefwoorden")
     private Collection<String> trefwoorden = new ArrayList<>();
 
 
