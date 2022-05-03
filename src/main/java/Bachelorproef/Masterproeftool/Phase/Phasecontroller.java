@@ -28,4 +28,9 @@ public class Phasecontroller {
     public void setPhases(@RequestBody Phases p){
         phaseservice.setPhases(p);
     }
+
+    @PostMapping("/setstart")
+    public Phases setStart(@RequestBody LocalDateTime t){
+        return phaseservice.setStart(t);
+    }
 }

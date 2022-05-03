@@ -1,5 +1,6 @@
 package Bachelorproef.Masterproeftool.Authenticatie;
 
+import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
 import Bachelorproef.Masterproeftool.Onderwerp.Onderwerp;
 import Bachelorproef.Masterproeftool.Onderwerp.Onderwerpservice;
 import com.auth0.jwt.JWT;
@@ -45,6 +46,12 @@ public class Gebruikercontroller {
     public ResponseEntity<Gebruiker> saveGebruiker(@RequestBody Gebruiker gebruiker){
         return ResponseEntity.ok().body(gebruikerservice.saveGebruiker(gebruiker));
     }
+
+    @PostMapping("/gebruikers/savestudent")
+    public ResponseEntity<Gebruiker> saveGebruiker(@RequestBody Student gebruiker){
+        return ResponseEntity.ok().body(gebruikerservice.saveGebruiker(gebruiker));
+    }
+
     @PostMapping("/rollen/save")
     public ResponseEntity<Rol> saveRol(@RequestBody Rol rol){
         return ResponseEntity.ok().body(rolservice.saveRol(rol));
@@ -156,16 +163,6 @@ public class Gebruikercontroller {
     public ResponseEntity<List<Gebruiker>> getPromotoren(){
         return ResponseEntity.ok().body(gebruikerservice.findAllPromotoren());
     }
-
-    @PostMapping(path = "/test")
-    public Onderwerp test(){
-        ArrayList<String> di = new ArrayList<String>();
-        di.add("testdiscipline");
-        di.add("test2");
-        return  onderwerpservice.voegOnderwerpToeKantEnKlaar(new Onderwerp("lijsttest","doelgroep",gebruikerservice.findByUsername("Coordinator"),"email","phone",1,"Beschrijving",di,new ArrayList<String>(),true));
-    }
-
-
 
 }
 @Data

@@ -56,4 +56,10 @@ public class Phaseservice {
             return new Phases(LocalDateTime.now(),LocalDateTime.now().plusHours(2),LocalDateTime.now(),LocalDateTime.now().plusHours(5));
         }
     }
+
+    public Phases setStart(LocalDateTime t) {
+        Phases p = phaserepository.getById(1);
+        p.setStartP1(t);
+        return phaserepository.save(p);
+    }
 }
