@@ -11,7 +11,7 @@ public class DummyPhase {
     private static final Logger log = LoggerFactory.getLogger(DummyPhase.class);
 
     @Bean
-    CommandLineRunner initDatabase(Phaserepository phaserepository) {
+    CommandLineRunner initPhase(Phaserepository phaserepository) {
         return args -> {
             log.info("Preloading " + phaserepository.save(new Phases()));
         };
