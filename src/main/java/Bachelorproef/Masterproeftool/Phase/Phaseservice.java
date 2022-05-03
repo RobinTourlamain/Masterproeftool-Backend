@@ -58,8 +58,29 @@ public class Phaseservice {
     }
 
     public Phases setStart(LocalDateTime t) {
+        if(phaserepository.queryById(1) != null){
+            Phases p = phaserepository.getById(1);
+            p.setStartP1(t);
+            return phaserepository.save(p);
+        }
+        else{
+            return phaserepository.save(new Phases(t));
+        }
+    }
+
+    public Phases setEnd1(LocalDateTime t) {
         Phases p = phaserepository.getById(1);
-        p.setStartP1(t);
+        p.setEndP1(t);
+        return phaserepository.save(p);
+    }
+    public Phases setEnd2(LocalDateTime t) {
+        Phases p = phaserepository.getById(1);
+        p.setEndP2(t);
+        return phaserepository.save(p);
+    }
+    public Phases setEnd3(LocalDateTime t) {
+        Phases p = phaserepository.getById(1);
+        p.setEndP3(t);
         return phaserepository.save(p);
     }
 }

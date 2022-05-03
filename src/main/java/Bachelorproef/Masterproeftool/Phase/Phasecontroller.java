@@ -33,4 +33,17 @@ public class Phasecontroller {
     public Phases setStart(@RequestBody LocalDateTime t){
         return phaseservice.setStart(t);
     }
+
+    @PostMapping("/setend1")
+    public Phases setEnd1(@RequestBody LocalDateTime t){
+        return phaseservice.setEnd1(t);
+    }
+    @PostMapping("/setend2")
+    public Phases setEnd2(@RequestBody LocalDateTime t){
+        return phaseservice.setEnd2(t);
+    }
+    @PostMapping("/setend3")
+    public Phases setEnd3(@RequestBody LocalDateTime t){
+        return phaseservice.setEnd3(t);
+    }
 }

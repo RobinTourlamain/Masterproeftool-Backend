@@ -31,6 +31,11 @@ public class Phases {
         this.id = 1;
     }
 
+    public Phases(LocalDateTime t) {
+        this.id = 1;
+        this.startP1 = t;
+    }
+
     public int getId() {
         return id;
     }
