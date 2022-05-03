@@ -1,5 +1,6 @@
 package Bachelorproef.Masterproeftool.Authenticatie;
 
+import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
 import Bachelorproef.Masterproeftool.Onderwerp.Onderwerp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +25,7 @@ public class Gebruikerservice {
     public Gebruiker findByUsername(String username){
         return gebruikerrepository.findByUsername(username);
     }
+    public Student findStudentByUsername(String username){return gebruikerrepository.findStudentByUsername(username);}
 
     public Gebruiker saveGebruiker(Gebruiker g) {
         g.setPassword(passwordEncoder.encode(g.getPassword()));
@@ -34,23 +36,23 @@ public class Gebruikerservice {
         return gebruikerrepository.findAll();
     }
 
-    public void favoriteOnderwerp(Gebruiker g, Onderwerp o){
+    public void favoriteOnderwerp(Student g, Onderwerp o){
         g.getFavorites().add(o);
         gebruikerrepository.save(g);
     }
 
-    public void deleteFavoriteOnderwerp(Gebruiker g, Onderwerp o) {
+    public void deleteFavoriteOnderwerp(Student g, Onderwerp o) {
         g.getFavorites().remove(o);
         gebruikerrepository.save(g);
     }
 
-    public void selectOnderwerpen(Gebruiker g, List l) {
+    public void selectOnderwerpen(Student g, List l) {
         g.getSelection().clear();
         g.getSelection().addAll(l);
         gebruikerrepository.save(g);
     }
 
-    public Collection<Onderwerp> getSelection(Gebruiker g){
+    public Collection<Onderwerp> getSelection(Student g){
         return g.getSelection();
     }
 

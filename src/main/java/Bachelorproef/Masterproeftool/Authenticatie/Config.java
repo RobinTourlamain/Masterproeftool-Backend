@@ -1,6 +1,7 @@
 package Bachelorproef.Masterproeftool.Authenticatie;
 
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
+import Bachelorproef.Masterproeftool.Onderwerp.Onderwerpservice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -17,7 +18,7 @@ class Config {
     private static final Logger log = LoggerFactory.getLogger(Config.class);
 
     @Bean //Dummydata
-    CommandLineRunner initRollen(Rolservice rolservice) {
+    CommandLineRunner initRollen(Rolservice rolservice, Gebruikerrepository gebruikerrepository, Onderwerpservice onderwerpservice) {
         return args -> {
             log.info("Preloading " + rolservice.saveRol(new Rol("Admin")));
             log.info("Preloading " + rolservice.saveRol(new Rol( "Student")));
@@ -27,12 +28,14 @@ class Config {
             log.info("Preloading " + rolservice.saveGebruiker(new Gebruiker( "Robin","Robin","root", new ArrayList<>())));
             log.info("Preloading " + rolservice.saveGebruiker(new Gebruiker( "Admin", "Admin", "root", new ArrayList<>())));
             log.info("Preloading " + rolservice.saveGebruiker(new Gebruiker( "Coordinator","Coordinator","root", new ArrayList<>())));
-            log.info("Preloading " + rolservice.saveGebruiker(new Student( 69,"student","studentemail","root")));
+            log.info("Preloading " + rolservice.saveGebruiker(new Student( "achternaam","email","root", new ArrayList<>(), "voornaam")));
 
             rolservice.addRolToGebruiker("Admin", "Admin");
             rolservice.addRolToGebruiker("Admin", "Student");
             rolservice.addRolToGebruiker("Robin", "Student");
             rolservice.addRolToGebruiker("Coordinator", "Coordinator");
+            rolservice.addRolToGebruiker("email", "Student");
+
         };
     }
 

@@ -1,6 +1,7 @@
 package Bachelorproef.Masterproeftool.Onderwerp;
 
 import Bachelorproef.Masterproeftool.Authenticatie.Gebruiker;
+import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -48,10 +49,10 @@ public class Onderwerp {
 
 
     @ManyToMany(mappedBy = "favorites")
-    private Collection<Gebruiker> likes = new ArrayList<>();
+    private Collection<Student> likes = new ArrayList<>();
 
     @ManyToMany(mappedBy = "selection")
-    private Collection<Gebruiker> selected = new ArrayList<>();
+    private Collection<Student> selected = new ArrayList<>();
 
     @Column(name = "hideObject")
     private boolean hideObject;

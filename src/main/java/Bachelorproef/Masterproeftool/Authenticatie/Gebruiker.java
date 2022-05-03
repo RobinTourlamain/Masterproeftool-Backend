@@ -20,29 +20,13 @@ public class Gebruiker {
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Rol> rollen = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "Onderwerplikes",
-            joinColumns = @JoinColumn(name = "Gebruiker_id"),
-            inverseJoinColumns = @JoinColumn(name = "onderwerp_id"))
-    private Collection<Onderwerp> favorites = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "OnderwerpSelection",
-            joinColumns = @JoinColumn(name = "Gebruiker_id"),
-            inverseJoinColumns = @JoinColumn(name = "onderwerp_id"))
-    private Collection<Onderwerp> selection = new ArrayList<>();
 
     public <E> Gebruiker(String name, String username, String password, ArrayList<Rol> rollen) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.rollen = rollen;
-    }
-
-    public void favoriteOnderwerp(Onderwerp o){
-        favorites.add(o);
     }
 
     public long getId() {
@@ -65,13 +49,6 @@ public class Gebruiker {
         return rollen;
     }
 
-    public Collection<Onderwerp> getFavorites() {
-        return favorites;
-    }
-
-    public Collection<Onderwerp> getSelection() {
-        return selection;
-    }
 
     public void setPassword(String encode) {
         this.password = encode;

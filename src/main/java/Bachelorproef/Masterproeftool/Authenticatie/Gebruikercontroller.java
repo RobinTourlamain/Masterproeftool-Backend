@@ -65,21 +65,21 @@ public class Gebruikercontroller {
 
     @GetMapping(path = "/favorieten")
     public ResponseEntity<Collection<Onderwerp>> getFavorites(Principal principal){
-        Gebruiker g = gebruikerservice.findByUsername(principal.getName());
+        Student g = gebruikerservice.findStudentByUsername(principal.getName());
         return ResponseEntity.ok().body(g.getFavorites());
     }
 
     @PostMapping(path = "/addfavoriet/{id}")
     public Onderwerp favoriteOnderwerp(@PathVariable int id, Principal principal) {
         Onderwerp o = onderwerpservice.getOnderwerpById(id);
-        gebruikerservice.favoriteOnderwerp(gebruikerservice.findByUsername(principal.getName()),o);
+        gebruikerservice.favoriteOnderwerp(gebruikerservice.findStudentByUsername(principal.getName()),o);
         return o;
     }
 
     @DeleteMapping(path = "/deletefavoriet/{id}")
     public Onderwerp deleteFavoriteOnderwerp(@PathVariable int id, Principal principal) {
         Onderwerp o = onderwerpservice.getOnderwerpById(id);
-        gebruikerservice.deleteFavoriteOnderwerp(gebruikerservice.findByUsername(principal.getName()),o);
+        gebruikerservice.deleteFavoriteOnderwerp(gebruikerservice.findStudentByUsername(principal.getName()),o);
         return o;
     }
 
@@ -89,12 +89,12 @@ public class Gebruikercontroller {
         ids.add(i1);
         ids.add(i2);
         ids.add(i3);
-        gebruikerservice.selectOnderwerpen(gebruikerservice.findByUsername(principal.getName()), onderwerpservice.getOnderwerpenById(ids));
+        gebruikerservice.selectOnderwerpen(gebruikerservice.findStudentByUsername(principal.getName()), onderwerpservice.getOnderwerpenById(ids));
     }
 
     @GetMapping(path = "/selection")
     public Collection<Onderwerp> getSelection(Principal principal){
-        return gebruikerservice.getSelection(gebruikerservice.findByUsername(principal.getName()));
+        return gebruikerservice.getSelection(gebruikerservice.findStudentByUsername(principal.getName()));
     }
 
     @GetMapping("/refreshtoken")
