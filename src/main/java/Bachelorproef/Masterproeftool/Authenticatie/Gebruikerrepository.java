@@ -11,4 +11,6 @@ public interface Gebruikerrepository extends JpaRepository<Gebruiker, Long> {
     List<Gebruiker> findByRollenContaining(Rol r);
 
     Student findStudentByUsername(String username);
+
+    Student findStudentById(long sid);
 }

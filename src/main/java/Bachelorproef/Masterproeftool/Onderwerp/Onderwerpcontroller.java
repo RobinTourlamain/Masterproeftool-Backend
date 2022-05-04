@@ -1,6 +1,7 @@
 package Bachelorproef.Masterproeftool.Onderwerp;
 
 import Bachelorproef.Masterproeftool.Authenticatie.Gebruiker;
+import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,5 +64,10 @@ public class Onderwerpcontroller {
         temp.setHideObject(true);
         temp = onderwerpservice.updateHideObject(temp);
         return temp;
+    }
+
+    @GetMapping("/selection/{id}")
+    public Collection<Long> getSelection(@PathVariable int id){
+        return onderwerpservice.getSelection(id);
     }
 }

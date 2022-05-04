@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface Onderwerprepository extends JpaRepository<Onderwerp, Integer> {
     List<Onderwerp> findAll();
+
+    Onderwerp queryById(int id);
 }

@@ -8,6 +8,8 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Onderwerpen")
@@ -54,8 +56,16 @@ public class Onderwerp {
     @ManyToMany(mappedBy = "selection")
     private Collection<Student> selected = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student boosted;
+
     @Column(name = "hideObject")
     private boolean hideObject;
+
+    public Student getBoosted() {
+        return boosted;
+    }
 
     public Onderwerp(String name, String doelgroep, Gebruiker promotor, String email, String phone, int i, String beschrijving, ArrayList<String> strings, ArrayList<String> strings1, boolean b) {
         this.name = name;
@@ -121,5 +131,13 @@ public class Onderwerp {
 
     public void setPromotor(Gebruiker promotor) {
         this.promotor = promotor;
+    }
+
+    public Collection<Long> getSelection() {
+        return selected.stream().map(Gebruiker::getId).collect(Collectors.toList());
+    }
+
+    public void setBoosted(Student s) {
+        boosted = s;
     }
 }

@@ -21,6 +21,8 @@ class Dummydata {
         //voeg onderwerpen toe naar wens
         return args -> {
             log.info("Preloading " + repository.save(new Onderwerp("gebtest","doelgroep",gebruikerservice.findByUsername("Coordinator"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("IT","doelgroep",gebruikerservice.findByUsername("Coordinator"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("A","doelgroep",gebruikerservice.findByUsername("Coordinator"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
         };
     }
 }

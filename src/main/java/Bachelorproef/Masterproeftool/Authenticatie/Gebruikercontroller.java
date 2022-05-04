@@ -85,15 +85,16 @@ public class Gebruikercontroller {
 
     @PostMapping(path = "/addselection/{i1}/{i2}/{i3}")
     public void addSelection(@PathVariable int i1,@PathVariable int i2,@PathVariable int i3, Principal principal){
-        ArrayList<Integer> ids = new ArrayList();
-        ids.add(i1);
-        ids.add(i2);
-        ids.add(i3);
-        gebruikerservice.selectOnderwerpen(gebruikerservice.findStudentByUsername(principal.getName()), onderwerpservice.getOnderwerpenById(ids));
+        Map<Integer,Onderwerp> m = new HashMap<>();
+        m.put(1,onderwerpservice.getOnderwerpById(i1));
+        m.put(2,onderwerpservice.getOnderwerpById(i2));
+        m.put(3,onderwerpservice.getOnderwerpById(i3));
+
+        gebruikerservice.selectOnderwerpen(gebruikerservice.findStudentByUsername(principal.getName()), m);
     }
 
     @GetMapping(path = "/selection")
-    public Collection<Onderwerp> getSelection(Principal principal){
+    public Map<Integer, Onderwerp> getSelection(Principal principal){
         return gebruikerservice.getSelection(gebruikerservice.findStudentByUsername(principal.getName()));
     }
 
@@ -162,6 +163,11 @@ public class Gebruikercontroller {
     @GetMapping("/promotoren")//gebruik dit om keuze tussen promotoren weer te geven
     public ResponseEntity<List<Gebruiker>> getPromotoren(){
         return ResponseEntity.ok().body(gebruikerservice.findAllPromotoren());
+    }
+
+    @PostMapping("/boost/{oid}/{sid}")
+    public Onderwerp boostStudent(@PathVariable int oid, @PathVariable long sid){
+        return onderwerpservice.boostStudent(oid, sid);
     }
 
 }

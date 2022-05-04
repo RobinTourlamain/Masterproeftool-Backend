@@ -2,11 +2,13 @@ package Bachelorproef.Masterproeftool.Onderwerp;
 
 import Bachelorproef.Masterproeftool.Authenticatie.Gebruiker;
 import Bachelorproef.Masterproeftool.Authenticatie.Gebruikerservice;
+import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,5 +67,20 @@ public class Onderwerpservice {
 
     public Onderwerp updateHideObject(Onderwerp onderwerp) {
         return onderwerprepository.save(onderwerp);
+    }
+
+    public Collection<Long> getSelection(int id) {
+        Onderwerp o = onderwerprepository.queryById(id);
+        if(o != null){
+            return o.getSelection();
+        }
+        else return null;
+    }
+
+    public Onderwerp boostStudent(int oid, long sid) {
+        Onderwerp o = onderwerprepository.queryById(oid);
+        o.setBoosted(gebruikerservice.findStudentById(sid));
+        onderwerprepository.save(o);
+        return o;
     }
 }

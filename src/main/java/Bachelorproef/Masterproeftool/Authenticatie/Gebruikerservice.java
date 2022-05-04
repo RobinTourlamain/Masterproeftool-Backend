@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -46,13 +47,12 @@ public class Gebruikerservice {
         gebruikerrepository.save(g);
     }
 
-    public void selectOnderwerpen(Student g, List l) {
-        g.getSelection().clear();
-        g.getSelection().addAll(l);
+    public void selectOnderwerpen(Student g, Map l) {
+        g.setSelection(l);
         gebruikerrepository.save(g);
     }
 
-    public Collection<Onderwerp> getSelection(Student g){
+    public Map<Integer, Onderwerp> getSelection(Student g){
         return g.getSelection();
     }
 
@@ -62,5 +62,9 @@ public class Gebruikerservice {
 
     public Optional<Gebruiker> findById(int promotorid) {
         return gebruikerrepository.findById((long) promotorid);
+    }
+
+    public Student findStudentById(long sid) {
+        return gebruikerrepository.findStudentById(sid);
     }
 }
