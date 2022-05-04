@@ -36,6 +36,14 @@ public class Phases {
         this.startP1 = t;
     }
 
+    public Phases(int id, LocalDateTime startP1, LocalDateTime endP1, LocalDateTime endP2, LocalDateTime endP3) {
+        this.id = id;
+        this.startP1 = startP1;
+        this.endP1 = endP1;
+        this.endP2 = endP2;
+        this.endP3 = endP3;
+    }
+
     public int getId() {
         return id;
     }

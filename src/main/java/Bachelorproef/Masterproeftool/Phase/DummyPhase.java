@@ -1,10 +1,13 @@
 package Bachelorproef.Masterproeftool.Phase;
 
+import org.apache.tomcat.jni.Local;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.time.LocalDateTime;
 
 @Configuration
 public class DummyPhase {
@@ -13,7 +16,8 @@ public class DummyPhase {
     @Bean
     CommandLineRunner initPhase(Phaserepository phaserepository) {
         return args -> {
-            log.info("Preloading " + phaserepository.save(new Phases()));
+            LocalDateTime n = LocalDateTime.now();
+            log.info("Preloading " + phaserepository.save(new Phases(n,n.plusHours(1),n.plusHours(2),n.plusHours(3))));
         };
     }
 
