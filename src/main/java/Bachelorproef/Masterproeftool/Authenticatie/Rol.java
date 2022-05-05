@@ -24,5 +24,8 @@ public class Rol {
         else if (name.equalsIgnoreCase("Student")) {
             id = 2;
         }
+        if (name.equalsIgnoreCase("Coordinator")) {
+            id = 3;
+        }
     }
 }
