@@ -5,9 +5,6 @@ import Bachelorproef.Masterproeftool.Onderwerp.Onderwerp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.security.Principal;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -53,7 +50,7 @@ public class Gebruikerservice {
         gebruikerrepository.save(g);
     }
 
-    public Map<Integer, Onderwerp> getSelection(Student g){
+    public List<Onderwerp> getSelection(Student g){
         return g.getSelection();
     }
 

@@ -6,10 +6,7 @@ import Bachelorproef.Masterproeftool.Onderwerp.Onderwerp;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Entity @Data
 public class Student extends Gebruiker {
@@ -49,8 +46,12 @@ public class Student extends Gebruiker {
         return favorites;
     }
 
-    public Map<Integer, Onderwerp> getSelection() {
-        return selection;
+    public List<Onderwerp> getSelection() {
+        List<Onderwerp> l = new ArrayList<>();
+        l.add(selection.get(1));
+        l.add(selection.get(2));
+        l.add(selection.get(3));
+        return l;
     }
 
     public Onderwerp getToegewezen(){

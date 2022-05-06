@@ -87,7 +87,7 @@ public class Gebruikercontroller {
     }
 
     @GetMapping(path = "/selection")
-    public Map<Integer, Onderwerp> getSelection(Principal principal){
+    public List<Onderwerp> getSelection(Principal principal){
         return gebruikerservice.getSelection(gebruikerservice.findStudentByUsername(principal.getName()));
     }
 
