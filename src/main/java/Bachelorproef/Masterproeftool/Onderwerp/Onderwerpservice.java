@@ -83,4 +83,14 @@ public class Onderwerpservice {
         onderwerprepository.save(o);
         return o;
     }
+
+    public Student wijsToe(int oid, long sid) {
+        Onderwerp o = onderwerprepository.queryById(oid);
+        if(o.getToegewezen().size() < o.getCapacity()){
+            return gebruikerservice.wijsToe(o,sid);
+        }
+        else{
+            throw new Onderwerpovercapacityexception();
+        }
+    }
 }

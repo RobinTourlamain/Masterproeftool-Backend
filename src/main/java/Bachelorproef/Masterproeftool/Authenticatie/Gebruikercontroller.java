@@ -11,13 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +19,6 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
-
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -148,7 +141,7 @@ public class Gebruikercontroller {
     }
 
     @GetMapping("/logout")
-    public void logOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void logOut(HttpServletRequest request, HttpServletResponse response) {
         //als de refreshtoken wordt opgeslagen in de databse moet deze ook hier verwijderd worden
         Cookie[] cookies = request.getCookies();
         for(Cookie cookie: cookies) {
@@ -168,6 +161,16 @@ public class Gebruikercontroller {
     @PostMapping("/boost/{oid}/{sid}")
     public Onderwerp boostStudent(@PathVariable int oid, @PathVariable long sid){
         return onderwerpservice.boostStudent(oid, sid);
+    }
+
+    @PostMapping("/toewijzen/{oid}/{sid}")
+    public Student wijsToe(@PathVariable int oid, @PathVariable long sid){
+        return onderwerpservice.wijsToe(oid, sid);
+    }
+
+    @GetMapping("/gettoegewezen")
+    public Onderwerp getToegewezen(Principal principal){
+        return gebruikerservice.getToegewezen(gebruikerservice.findStudentByUsername(principal.getName()));
     }
 
 }

@@ -2,13 +2,10 @@ package Bachelorproef.Masterproeftool.Onderwerp;
 
 import Bachelorproef.Masterproeftool.Authenticatie.Gebruiker;
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Entity
@@ -60,12 +57,11 @@ public class Onderwerp {
     @JoinColumn(name = "student_id")
     private Student boosted;
 
+    @OneToMany(mappedBy = "toegewezen")
+    private Collection<Student> toegewezen = new ArrayList<>();
+
     @Column(name = "hideObject")
     private boolean hideObject;
-
-    public Student getBoosted() {
-        return boosted;
-    }
 
     public Onderwerp(String name, String doelgroep, Gebruiker promotor, String email, String phone, int i, String beschrijving, ArrayList<String> strings, ArrayList<String> strings1, boolean b) {
         this.name = name;
@@ -135,6 +131,23 @@ public class Onderwerp {
 
     public Collection<Long> getSelection() {
         return selected.stream().map(Gebruiker::getId).collect(Collectors.toList());
+    }
+
+    public Collection<Long> getLikes() {
+        return likes.stream().map(Gebruiker::getId).collect(Collectors.toList());
+    }
+
+    public Collection<Long> getToegewezen() {
+        return toegewezen.stream().map(Gebruiker::getId).collect(Collectors.toList());
+    }
+
+    public Object getBoosted() {
+        if(boosted != null){
+            return boosted.getId();
+        }
+        else{
+            return null;
+        }
     }
 
     public void setBoosted(Student s) {

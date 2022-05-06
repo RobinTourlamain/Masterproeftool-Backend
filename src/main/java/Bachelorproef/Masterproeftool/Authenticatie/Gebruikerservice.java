@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -66,5 +67,15 @@ public class Gebruikerservice {
 
     public Student findStudentById(long sid) {
         return gebruikerrepository.findStudentById(sid);
+    }
+
+    public Student wijsToe(Onderwerp o, long sid) {
+        Student s = gebruikerrepository.findStudentById(sid);
+        s.setToegewezen(o);
+        return gebruikerrepository.save(s);
+    }
+
+    public Onderwerp getToegewezen(Student s) {
+        return s.getToegewezen();
     }
 }

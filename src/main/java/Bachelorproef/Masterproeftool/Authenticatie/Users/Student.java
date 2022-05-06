@@ -33,6 +33,10 @@ public class Student extends Gebruiker {
             inverseJoinColumns = @JoinColumn(name = "onderwerp_id"))
     private Map<Integer,Onderwerp> selection = new HashMap<>();
 
+    @ManyToOne
+    @JoinColumn(name = "onderwerp_id")
+    private Onderwerp toegewezen;
+
     public Student(String n, String u, String p, ArrayList<Rol> r, String fn) {
         super( n,  u,  p, r);
         this.firstname = fn;
@@ -47,6 +51,10 @@ public class Student extends Gebruiker {
 
     public Map<Integer, Onderwerp> getSelection() {
         return selection;
+    }
+
+    public Onderwerp getToegewezen(){
+        return toegewezen;
     }
 
     public void favoriteOnderwerp(Onderwerp o){
