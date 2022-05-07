@@ -69,12 +69,17 @@ public class Onderwerpservice {
         return onderwerprepository.save(onderwerp);
     }
 
-    public Collection<Long> getSelection(int id) {
+    public ArrayList<String> getSelection(int id) {
         Onderwerp o = onderwerprepository.queryById(id);
+        ArrayList<String> a = new ArrayList<>();
         if(o != null){
-            return o.getSelection();
+            for(long l : o.getSelection()){
+                String s = "";
+                s += gebruikerservice.findStudentById(l).getFirstname() + " " + gebruikerservice.findStudentById(l).getName();
+                a.add(s);
+            }
         }
-        else return null;
+        return a;
     }
 
     public Onderwerp boostStudent(int oid, long sid) {
