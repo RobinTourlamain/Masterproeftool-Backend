@@ -35,6 +35,13 @@ public class Gebruikercontroller {
         return ResponseEntity.ok().body(gebruikerservice.findAllGebruikers());
     }
 
+    @GetMapping("/studenten/naam/{id}")
+    public String getName(@PathVariable int id){
+        String s = "";
+        s += gebruikerservice.findStudentById(id).getFirstname() + " " + gebruikerservice.findStudentById(id).getName();
+        return s;
+    }
+
     @PostMapping("/gebruikers/save")
     public ResponseEntity<Gebruiker> saveGebruiker(@RequestBody Gebruiker gebruiker){
         return ResponseEntity.ok().body(gebruikerservice.saveGebruiker(gebruiker));
