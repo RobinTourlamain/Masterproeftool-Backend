@@ -70,4 +70,9 @@ public class Onderwerpcontroller {
     public ArrayList<String> getSelection(@PathVariable int id){
         return onderwerpservice.getSelection(id);
     }
+
+    @GetMapping("/selection/all")
+    public ArrayList<ArrayList<Student>> getAllSelection(){
+        return onderwerpservice.getAllSelection();
+    }
 }

@@ -98,4 +98,16 @@ public class Onderwerpservice {
             throw new Onderwerpovercapacityexception();
         }
     }
+
+    public ArrayList<ArrayList<Student>> getAllSelection() {
+        ArrayList<ArrayList<Student>> a = new ArrayList<>();
+        for(Onderwerp o : onderwerprepository.findAll()){
+            ArrayList<Student> s = new ArrayList<>();
+            for(Long l : o.getSelection()){
+                s.add(gebruikerservice.findStudentById(l));
+            }
+            a.add(s);
+        }
+        return a;
+    }
 }
