@@ -24,8 +24,14 @@ public class Rol {
         else if (name.equalsIgnoreCase("Student")) {
             id = 2;
         }
-        if (name.equalsIgnoreCase("Coordinator")) {
+        else if (name.equalsIgnoreCase("Coordinator")) {
             id = 3;
+        }
+        else if (name.equalsIgnoreCase("Bedrijf")) {
+            id = 4;
+        }
+        else if (name.equalsIgnoreCase("Promotor")) {
+            id = 5;
         }
     }
 }
