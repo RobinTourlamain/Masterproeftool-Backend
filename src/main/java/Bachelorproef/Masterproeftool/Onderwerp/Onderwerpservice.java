@@ -69,13 +69,13 @@ public class Onderwerpservice {
         return onderwerprepository.save(onderwerp);
     }
 
-    public ArrayList<String> getSelection(int id) {
+    public ArrayList<Student> getSelection(int id) {
         Onderwerp o = onderwerprepository.queryById(id);
-        ArrayList<String> a = new ArrayList<>();
+        ArrayList<Student> a = new ArrayList<>();
         if(o != null){
             for(long l : o.getSelection()){
-                String s = "";
-                s += gebruikerservice.findStudentById(l).getFirstname() + " " + gebruikerservice.findStudentById(l).getName();
+                Student s;
+                s = gebruikerservice.findStudentById(l);
                 a.add(s);
             }
         }

@@ -67,7 +67,7 @@ public class Onderwerpcontroller {
     }
 
     @GetMapping("/selection/{id}")
-    public ArrayList<String> getSelection(@PathVariable int id){
+    public ArrayList<Student> getSelection(@PathVariable int id){
         return onderwerpservice.getSelection(id);
     }
 
