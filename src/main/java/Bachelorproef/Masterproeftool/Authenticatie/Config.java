@@ -2,6 +2,7 @@ package Bachelorproef.Masterproeftool.Authenticatie;
 
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
 import Bachelorproef.Masterproeftool.Onderwerp.Onderwerpservice;
+import com.github.javafaker.Faker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -20,6 +21,7 @@ class Config {
     @Bean //Dummydata
     CommandLineRunner initRollen(Rolservice rolservice, Gebruikerrepository gebruikerrepository, Onderwerpservice onderwerpservice) {
         return args -> {
+            Faker f = new Faker();
             log.info("Preloading " + rolservice.saveRol(new Rol("Admin")));
             log.info("Preloading " + rolservice.saveRol(new Rol( "Student")));
             log.info("Preloading " + rolservice.saveRol(new Rol("Coordinator")));
@@ -35,6 +37,14 @@ class Config {
             rolservice.addRolToGebruiker("Remail", "Student");
             rolservice.addRolToGebruiker("Coordinator", "Coordinator");
             rolservice.addRolToGebruiker("email", "Student");
+
+            for(int i = 0; i<20; i++){
+                String fn = f.name().firstName();
+                String un = f.internet().emailAddress(fn);
+                String sn = "r" + f.number().digits(7);
+                rolservice.saveGebruiker(new Student( f.name().lastName(),un,"root", new ArrayList<>(),fn,sn,0,0,f.address().fullAddress()));
+                rolservice.addRolToGebruiker(un, "Student");
+            }
 
         };
     }
