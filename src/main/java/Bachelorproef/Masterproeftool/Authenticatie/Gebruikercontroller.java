@@ -10,7 +10,11 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -26,9 +30,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController @RequiredArgsConstructor
 @RequestMapping("/auth")
 public class Gebruikercontroller {
+    private static final Logger log = LoggerFactory.getLogger(Gebruikercontroller.class);
     private final Gebruikerservice gebruikerservice;
     private final Rolservice rolservice;
     private final Onderwerpservice onderwerpservice;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/gebruikers")
     public ResponseEntity<List<Gebruiker>> getGebruikers(){
@@ -180,6 +186,21 @@ public class Gebruikercontroller {
         return gebruikerservice.getToegewezen(gebruikerservice.findStudentByUsername(principal.getName()));
     }
 
+    @PostMapping("/changepassword")
+    public Gebruiker changePassword(@RequestParam String op,@RequestParam String np, Principal principal){
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        Gebruiker g = gebruikerservice.findByUsername(principal.getName());
+        String op1 = g.getPassword();
+        if(bCryptPasswordEncoder.matches(op,op1)){
+            log.info("wachtwoord matcht");
+            g.setPassword(np);
+            return gebruikerservice.saveGebruiker(g);
+        }
+        else{
+            log.info("wachtwoord matcht niet");
+            throw new RuntimeException();
+        }
+    }
 }
 @Data
 class RoleToUserForm{

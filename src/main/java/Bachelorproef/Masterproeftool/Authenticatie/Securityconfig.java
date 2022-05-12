@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.http.HttpMethod.GET;
 
 @Configuration @EnableWebSecurity @RequiredArgsConstructor
 public class Securityconfig extends WebSecurityConfigurerAdapter {
@@ -53,6 +52,9 @@ public class Securityconfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().anyRequest().authenticated();                      //doe permitAll() om niet te moeten inloggen
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.requiresChannel().anyRequest().requiresSecure(); //https verplicht
+        http.portMapper()
+                .http(8080).mapsTo(8443);
     }
 
     @Bean
@@ -60,4 +62,5 @@ public class Securityconfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
 }
