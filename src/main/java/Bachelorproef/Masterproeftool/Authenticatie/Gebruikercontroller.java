@@ -95,9 +95,8 @@ public class Gebruikercontroller {
 
     @DeleteMapping(path = "/deletefavoriet/{id}")
     public Onderwerp deleteFavoriteOnderwerp(@PathVariable Integer id, Principal principal) {
-        Onderwerp o = onderwerpservice.getOnderwerpById(id);
         onderwerpservice.deleteFavoriteOnderwerp(gebruikerservice.findStudentByUsername(principal.getName()),id);
-        return o;
+        return onderwerpservice.getOnderwerpById(id);
     }
 
     @PostMapping(path = "/addselection/{i1}/{i2}/{i3}")

@@ -114,9 +114,10 @@ public class Onderwerpservice {
     }
 
     public void deleteFavoriteOnderwerp(Student g, Integer id) {
-        g.getFavorites().remove(id);
+        List<Integer> l = g.getFavorites();
+        l.remove(id);
         ArrayList<Onderwerp> a = new ArrayList<>();
-        for(Integer i : g.getFavorites()){
+        for(Integer i : l){
             a.add(onderwerprepository.getById(i));
         }
         g.setFavorites(a);
