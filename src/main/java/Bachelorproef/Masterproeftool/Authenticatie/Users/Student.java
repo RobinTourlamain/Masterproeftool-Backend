@@ -58,8 +58,10 @@ public class Student extends Gebruiker {
 
     public Map<Integer, Integer> getSelection() {
         Map<Integer,Integer> m = new HashMap<>();
-        for(Integer i : selection.keySet()){
-            m.put(i,selection.get(i).getId());
+        if(!selection.isEmpty()){
+            for(Integer i : selection.keySet()){
+                m.put(i,selection.get(i).getId());
+            }
         }
         return m;
     }
