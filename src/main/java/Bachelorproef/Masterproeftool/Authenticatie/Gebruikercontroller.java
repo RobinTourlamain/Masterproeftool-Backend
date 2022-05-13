@@ -216,6 +216,11 @@ public class Gebruikercontroller {
             throw new RuntimeException();
         }
     }
+
+    @GetMapping("/account")
+    public Gebruiker getAccount(Principal principal){
+        return gebruikerservice.findByUsername(principal.getName());
+    }
 }
 @Data
 class RoleToUserForm{

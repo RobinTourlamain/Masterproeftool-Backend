@@ -60,8 +60,6 @@ public class Onderwerp {
     @JoinColumn(name = "student_id")
     private Student boosted;
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "toegewezen")
     private Collection<Student> toegewezen = new ArrayList<>();
 
