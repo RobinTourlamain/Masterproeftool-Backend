@@ -1,6 +1,7 @@
 package Bachelorproef.Masterproeftool.Onderwerp;
 
 import Bachelorproef.Masterproeftool.Authenticatie.Gebruiker;
+import Bachelorproef.Masterproeftool.Authenticatie.Users.Company;
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -46,6 +48,10 @@ public class Onderwerpcontroller {
     @PostMapping(path = "/addonderwerp/{promotorid}") //voeg onderwerp toe
     Onderwerp addOnderwerp(@RequestBody Onderwerp tempOnderwerp,@PathVariable int promotorid){
         return onderwerpservice.voegOnderwerpToe(tempOnderwerp, promotorid);
+    }
+    @PostMapping(path = "/bedrijfaddonderwerp/{promotorid}") //voeg onderwerp toe
+    Company addOnderwerpBedrijf(@RequestBody Onderwerp tempOnderwerp, @PathVariable int promotorid, Principal principal){
+        return onderwerpservice.voegOnderwerpToeBedrijf(tempOnderwerp, promotorid, principal.getName());
     }
     @DeleteMapping(path = "/onderwerpen/{id}")
     void deleteOnderwerp(@PathVariable int id) {

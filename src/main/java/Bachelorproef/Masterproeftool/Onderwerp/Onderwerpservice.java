@@ -2,6 +2,7 @@ package Bachelorproef.Masterproeftool.Onderwerp;
 
 import Bachelorproef.Masterproeftool.Authenticatie.Gebruiker;
 import Bachelorproef.Masterproeftool.Authenticatie.Gebruikerservice;
+import Bachelorproef.Masterproeftool.Authenticatie.Users.Company;
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -30,6 +31,22 @@ public class Onderwerpservice {
         else{
             tempOnderwerp.setPromotor(gebruikerservice.findById(promotorid).orElse(gebruikerservice.findByUsername("Admin")));
             return onderwerprepository.save(tempOnderwerp);
+        }
+    }
+
+    public Company voegOnderwerpToeBedrijf(Onderwerp tempOnderwerp, int promotorid, String name) {
+        if(gebruikerservice.findById(promotorid).isEmpty()){
+            throw new Promotornotfoundexception(promotorid);
+        }
+        else{
+            tempOnderwerp.setPromotor(gebruikerservice.findById(promotorid).orElse(gebruikerservice.findByUsername("Admin")));
+            Company c  = gebruikerservice.findCompanyByUsername(name);
+            tempOnderwerp.setBedrijf(c);
+            onderwerprepository.save(tempOnderwerp);
+            Onderwerp o = onderwerprepository.queryById(tempOnderwerp.getId());
+//            c.getOnderwerpen().add(o);
+//            gebruikerservice.saveGebruiker(c);
+            return c;
         }
     }
 

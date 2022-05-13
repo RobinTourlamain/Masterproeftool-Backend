@@ -1,5 +1,7 @@
 package Bachelorproef.Masterproeftool.Authenticatie;
 
+import Bachelorproef.Masterproeftool.Authenticatie.Users.Company;
+import Bachelorproef.Masterproeftool.Authenticatie.Users.Promotor;
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
 import Bachelorproef.Masterproeftool.Onderwerp.Onderwerpservice;
 import com.github.javafaker.Faker;
@@ -26,17 +28,23 @@ class Config {
             log.info("Preloading " + rolservice.saveRol(new Rol( "Student")));
             log.info("Preloading " + rolservice.saveRol(new Rol("Coordinator")));
             log.info("Preloading " + rolservice.saveRol(new Rol("Promotor")));
+            log.info("Preloading " + rolservice.saveRol(new Rol("Bedrijf")));
 
             rolservice.saveGebruiker(new Student( "Tourlamain","Remail","root", new ArrayList<>(),"Robin"));
             rolservice.saveGebruiker(new Gebruiker( "Admin", "Admin", "root", new ArrayList<>()));
             rolservice.saveGebruiker(new Gebruiker( "Coordinator","Coordinator","root", new ArrayList<>()));
             rolservice.saveGebruiker(new Student( "achternaam","email","root", new ArrayList<>(), "voornaam"));
+            rolservice.saveGebruiker(new Company( "Telenet","telenetemail","root", new ArrayList<>(),"Brahm","Gert",  "phone",  "sector",  "address",  "website"));
+            rolservice.saveGebruiker(new Promotor( "Vorstermans","amail","root", new ArrayList<>(),"annemie"));
+
 
             rolservice.addRolToGebruiker("Admin", "Admin");
             rolservice.addRolToGebruiker("Admin", "Student");
             rolservice.addRolToGebruiker("Remail", "Student");
             rolservice.addRolToGebruiker("Coordinator", "Coordinator");
             rolservice.addRolToGebruiker("email", "Student");
+            rolservice.addRolToGebruiker("telenetemail", "Bedrijf");
+            rolservice.addRolToGebruiker("amail", "Promotor");
 
             for(int i = 0; i<20; i++){
                 String fn = f.name().firstName();

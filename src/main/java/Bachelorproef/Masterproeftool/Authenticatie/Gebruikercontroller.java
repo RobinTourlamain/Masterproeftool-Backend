@@ -222,6 +222,11 @@ public class Gebruikercontroller {
     public Gebruiker getAccount(Principal principal){
         return gebruikerservice.findByUsername(principal.getName());
     }
+
+    @GetMapping("/bedrijftoegewezen")
+    public Collection<Onderwerp> bedrijfToegewezen(Principal principal){
+        return gebruikerservice.bedrijfToegewezen(gebruikerservice.findCompanyByUsername(principal.getName()));
+    }
 }
 @Data
 class RoleToUserForm{

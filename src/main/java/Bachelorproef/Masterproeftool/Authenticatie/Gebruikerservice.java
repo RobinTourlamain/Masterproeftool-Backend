@@ -1,13 +1,18 @@
 package Bachelorproef.Masterproeftool.Authenticatie;
 
+import Bachelorproef.Masterproeftool.Authenticatie.Users.Company;
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
 import Bachelorproef.Masterproeftool.Onderwerp.Onderwerp;
+import Bachelorproef.Masterproeftool.Onderwerp.Onderwerpcontroller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class Gebruikerservice {
@@ -69,5 +74,13 @@ public class Gebruikerservice {
         Student s = gebruikerrepository.findStudentById(sid);
         s.setToegewezen(o);
         return gebruikerrepository.save(s);
+    }
+
+    public Company findCompanyByUsername(String name) {
+        return gebruikerrepository.findCompanyByUsername(name);
+    }
+
+    public Collection<Onderwerp> bedrijfToegewezen(Company c) {
+        return c.getOnderwerpen().stream().filter(o -> !o.getToegewezen().isEmpty()).collect(Collectors.toList());
     }
 }

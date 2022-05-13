@@ -1,6 +1,7 @@
 package Bachelorproef.Masterproeftool.Onderwerp;
 
 import Bachelorproef.Masterproeftool.Authenticatie.Gebruiker;
+import Bachelorproef.Masterproeftool.Authenticatie.Users.Company;
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -65,6 +66,13 @@ public class Onderwerp {
 
     @Column(name = "hideObject")
     private boolean hideObject;
+
+    @ManyToOne
+    @JoinTable(
+            name = "bedrijfonderwerpen",
+            joinColumns = @JoinColumn(name = "company_id"),
+            inverseJoinColumns = @JoinColumn(name = "onderwerp_id"))
+    private Company bedrijf;
 
     public Onderwerp(String name, String doelgroep, Gebruiker promotor, String email, String phone, int i, String beschrijving, ArrayList<String> strings, ArrayList<String> strings1, boolean b) {
         this.name = name;
@@ -142,8 +150,8 @@ public class Onderwerp {
     }
 
 
-    public Collection<Long> getToegewezen() {
-        return toegewezen.stream().map(Gebruiker::getId).collect(Collectors.toList());
+    public Collection<Student> getToegewezen() {
+        return toegewezen;
     }
 
     public Object getBoosted() {
@@ -157,5 +165,16 @@ public class Onderwerp {
 
     public void setBoosted(Student s) {
         boosted = s;
+    }
+    public Long getBedrijf(){
+        if(bedrijf != null){
+            return bedrijf.getId();
+        }
+        else
+            return null;
+    }
+
+    public void setBedrijf(Company c) {
+        bedrijf = c;
     }
 }
