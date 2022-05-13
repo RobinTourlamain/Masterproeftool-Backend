@@ -17,7 +17,7 @@ public class DummyPhase {
     CommandLineRunner initPhase(Phaserepository phaserepository) {
         return args -> {
             LocalDateTime n = LocalDateTime.now();
-            log.info("Preloading " + phaserepository.save(new Phases(n,n.plusHours(1),n.plusHours(2),n.plusHours(3))));
+            log.info("Preloading " + phaserepository.save(new Phases(n,n.plusHours(1),n.plusHours(2),n.plusHours(3),n.plusHours(4),n.plusHours(5))));
         };
     }
 

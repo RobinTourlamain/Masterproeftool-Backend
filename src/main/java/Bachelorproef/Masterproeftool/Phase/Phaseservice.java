@@ -53,7 +53,7 @@ public class Phaseservice {
             return phaserepository.queryById(1);
         }
         else{
-            return new Phases(LocalDateTime.now(),LocalDateTime.now().plusHours(2),LocalDateTime.now(),LocalDateTime.now().plusHours(5));
+            return new Phases();
         }
     }
 
@@ -81,6 +81,16 @@ public class Phaseservice {
     public Phases setEnd3(LocalDateTime t) {
         Phases p = phaserepository.getById(1);
         p.setEndP3(t);
+        return phaserepository.save(p);
+    }
+    public Phases setEnd4(LocalDateTime t) {
+        Phases p = phaserepository.getById(1);
+        p.setEndP4(t);
+        return phaserepository.save(p);
+    }
+    public Phases setEnd5(LocalDateTime t) {
+        Phases p = phaserepository.getById(1);
+        p.setEndP5(t);
         return phaserepository.save(p);
     }
 }

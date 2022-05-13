@@ -52,9 +52,9 @@ public class Securityconfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().anyRequest().authenticated();                      //doe permitAll() om niet te moeten inloggen
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-        http.requiresChannel().anyRequest().requiresSecure(); //https verplicht
-        http.portMapper()
-                .http(8080).mapsTo(8443);
+//        http.requiresChannel().anyRequest().requiresSecure(); //https verplicht
+//        http.portMapper()
+//                .http(8080).mapsTo(8443);
     }
 
     @Bean

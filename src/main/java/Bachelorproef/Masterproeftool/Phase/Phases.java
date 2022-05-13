@@ -17,14 +17,18 @@ public class Phases {
     private java.time.LocalDateTime endP1;
     private java.time.LocalDateTime endP2;
     private java.time.LocalDateTime endP3;
+    private java.time.LocalDateTime endP4;
+    private java.time.LocalDateTime endP5;
 
 
-    public Phases(LocalDateTime s,LocalDateTime e1,LocalDateTime e2,LocalDateTime e3){
+    public Phases(LocalDateTime s,LocalDateTime e1,LocalDateTime e2,LocalDateTime e3,LocalDateTime e4,LocalDateTime e5){
         this.id = 1;
         this.startP1 = s;
         this.endP1 = e1;
         this.endP2 = e2;
         this.endP3 = e3;
+        this.endP4= e4;
+        this.endP5 = e5;
     }
 
     public Phases() {
