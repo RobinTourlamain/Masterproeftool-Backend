@@ -2,9 +2,12 @@ package Bachelorproef.Masterproeftool.Authenticatie;
 
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
 import Bachelorproef.Masterproeftool.Onderwerp.Onderwerp;
+import Bachelorproef.Masterproeftool.Onderwerp.Onderwerpservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -35,8 +38,7 @@ public class Gebruikerservice {
         return gebruikerrepository.findAll();
     }
 
-    public void favoriteOnderwerp(Student g, Onderwerp o){
-        g.getFavorites().add(o);
+    public void favoriteOnderwerp(Student g){
         gebruikerrepository.save(g);
     }
 
@@ -50,7 +52,7 @@ public class Gebruikerservice {
         gebruikerrepository.save(g);
     }
 
-    public List<Onderwerp> getSelection(Student g){
+    public Map<Integer,Integer> getSelection(Student g){
         return g.getSelection();
     }
 
@@ -70,9 +72,5 @@ public class Gebruikerservice {
         Student s = gebruikerrepository.findStudentById(sid);
         s.setToegewezen(o);
         return gebruikerrepository.save(s);
-    }
-
-    public Onderwerp getToegewezen(Student s) {
-        return s.getToegewezen();
     }
 }

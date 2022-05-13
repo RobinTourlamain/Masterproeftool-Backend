@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity @Data
 public class Student extends Gebruiker {
@@ -51,20 +52,25 @@ public class Student extends Gebruiker {
         this.address = address;
     }
 
-    public Collection<Onderwerp> getFavorites() {
-        return favorites;
+    public List<Integer> getFavorites() {
+        return favorites.stream().map(Onderwerp::getId).collect(Collectors.toList());
     }
 
-    public List<Onderwerp> getSelection() {
-        List<Onderwerp> l = new ArrayList<>();
-        l.add(selection.get(1));
-        l.add(selection.get(2));
-        l.add(selection.get(3));
-        return l;
+    public Map<Integer, Integer> getSelection() {
+        Map<Integer,Integer> m = new HashMap<>();
+        for(Integer i : selection.keySet()){
+            m.put(i,selection.get(i).getId());
+        }
+        return m;
     }
 
-    public Onderwerp getToegewezen(){
-        return toegewezen;
+    public int getToegewezen() {
+        if(toegewezen != null){
+            return toegewezen.getId();
+        }
+        else{
+            return -1;
+        }
     }
 
     public void favoriteOnderwerp(Onderwerp o){

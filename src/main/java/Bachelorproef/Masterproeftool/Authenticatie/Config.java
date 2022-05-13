@@ -27,10 +27,10 @@ class Config {
             log.info("Preloading " + rolservice.saveRol(new Rol("Coordinator")));
             log.info("Preloading " + rolservice.saveRol(new Rol("Promotor")));
 
-            log.info("Preloading " + rolservice.saveGebruiker(new Student( "Tourlamain","Remail","root", new ArrayList<>(),"Robin")));
-            log.info("Preloading " + rolservice.saveGebruiker(new Gebruiker( "Admin", "Admin", "root", new ArrayList<>())));
-            log.info("Preloading " + rolservice.saveGebruiker(new Gebruiker( "Coordinator","Coordinator","root", new ArrayList<>())));
-            log.info("Preloading " + rolservice.saveGebruiker(new Student( "achternaam","email","root", new ArrayList<>(), "voornaam")));
+            rolservice.saveGebruiker(new Student( "Tourlamain","Remail","root", new ArrayList<>(),"Robin"));
+            rolservice.saveGebruiker(new Gebruiker( "Admin", "Admin", "root", new ArrayList<>()));
+            rolservice.saveGebruiker(new Gebruiker( "Coordinator","Coordinator","root", new ArrayList<>()));
+            rolservice.saveGebruiker(new Student( "achternaam","email","root", new ArrayList<>(), "voornaam"));
 
             rolservice.addRolToGebruiker("Admin", "Admin");
             rolservice.addRolToGebruiker("Admin", "Student");

@@ -73,11 +73,12 @@ public class Onderwerpservice {
         Onderwerp o = onderwerprepository.queryById(id);
         ArrayList<Student> a = new ArrayList<>();
         if(o != null){
-            for(long l : o.getSelection()){
-                Student s;
-                s = gebruikerservice.findStudentById(l);
-                a.add(s);
-            }
+//            for(long l : o.getSelection()){
+//                Student s;
+//                s = gebruikerservice.findStudentById(l);
+//                a.add(s);
+//            }
+            a.addAll(o.getSelection());
         }
         return a;
     }
@@ -103,9 +104,10 @@ public class Onderwerpservice {
         ArrayList<ArrayList<Student>> a = new ArrayList<>();
         for(Onderwerp o : onderwerprepository.findAll()){
             ArrayList<Student> s = new ArrayList<>();
-            for(Long l : o.getSelection()){
-                s.add(gebruikerservice.findStudentById(l));
-            }
+//            for(Long l : o.getSelection()){
+//                s.add(gebruikerservice.findStudentById(l));
+//            }
+            s.addAll(o.getSelection());
             a.add(s);
         }
         return a;

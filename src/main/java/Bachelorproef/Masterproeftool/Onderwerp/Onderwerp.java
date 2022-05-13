@@ -2,6 +2,9 @@ package Bachelorproef.Masterproeftool.Onderwerp;
 
 import Bachelorproef.Masterproeftool.Authenticatie.Gebruiker;
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -57,6 +60,8 @@ public class Onderwerp {
     @JoinColumn(name = "student_id")
     private Student boosted;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "toegewezen")
     private Collection<Student> toegewezen = new ArrayList<>();
 
@@ -129,13 +134,15 @@ public class Onderwerp {
         this.promotor = promotor;
     }
 
-    public Collection<Long> getSelection() {
-        return selected.stream().map(Gebruiker::getId).collect(Collectors.toList());
+    public Collection<Student> getSelection() {
+//        return selected.stream().map(Gebruiker::getId).collect(Collectors.toList());
+        return selected;
     }
 
     public Collection<Long> getLikes() {
         return likes.stream().map(Gebruiker::getId).collect(Collectors.toList());
     }
+
 
     public Collection<Long> getToegewezen() {
         return toegewezen.stream().map(Gebruiker::getId).collect(Collectors.toList());

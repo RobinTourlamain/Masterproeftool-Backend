@@ -72,13 +72,24 @@ public class Gebruikercontroller {
     @GetMapping(path = "/favorieten")
     public ResponseEntity<Collection<Onderwerp>> getFavorites(Principal principal){
         Student g = gebruikerservice.findStudentByUsername(principal.getName());
-        return ResponseEntity.ok().body(g.getFavorites());
+        Collection<Onderwerp> c = new ArrayList<>();
+        for(Integer i : g.getFavorites()){
+            c.add(onderwerpservice.getOnderwerpById(i));
+        }
+        return ResponseEntity.ok().body(c);
     }
 
     @PostMapping(path = "/addfavoriet/{id}")
     public Onderwerp favoriteOnderwerp(@PathVariable int id, Principal principal) {
         Onderwerp o = onderwerpservice.getOnderwerpById(id);
-        gebruikerservice.favoriteOnderwerp(gebruikerservice.findStudentByUsername(principal.getName()),o);
+
+        ArrayList<Onderwerp> a = new ArrayList<>();
+        for(Integer i : gebruikerservice.findStudentByUsername(principal.getName()).getFavorites()){
+            a.add(onderwerpservice.getOnderwerpById(i));
+        }
+        a.add(o);
+        gebruikerservice.findStudentByUsername(principal.getName()).setFavorites(a);
+        gebruikerservice.favoriteOnderwerp(gebruikerservice.findStudentByUsername(principal.getName()));
         return o;
     }
 
@@ -101,7 +112,11 @@ public class Gebruikercontroller {
 
     @GetMapping(path = "/selection")
     public List<Onderwerp> getSelection(Principal principal){
-        return gebruikerservice.getSelection(gebruikerservice.findStudentByUsername(principal.getName()));
+        List<Onderwerp> l = new ArrayList<>();
+        l.add(onderwerpservice.getOnderwerpById(gebruikerservice.findStudentByUsername(principal.getName()).getSelection().get(1)));
+        l.add(onderwerpservice.getOnderwerpById(gebruikerservice.findStudentByUsername(principal.getName()).getSelection().get(2)));
+        l.add(onderwerpservice.getOnderwerpById(gebruikerservice.findStudentByUsername(principal.getName()).getSelection().get(3)));
+        return l;
     }
 
     @GetMapping("/refreshtoken")
@@ -183,7 +198,7 @@ public class Gebruikercontroller {
 
     @GetMapping("/gettoegewezen")
     public Onderwerp getToegewezen(Principal principal){
-        return gebruikerservice.getToegewezen(gebruikerservice.findStudentByUsername(principal.getName()));
+        return onderwerpservice.getOnderwerpById(gebruikerservice.findStudentByUsername(principal.getName()).getToegewezen());
     }
 
     @PostMapping("/changepassword")
