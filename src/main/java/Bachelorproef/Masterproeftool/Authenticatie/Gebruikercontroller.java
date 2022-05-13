@@ -113,9 +113,11 @@ public class Gebruikercontroller {
     @GetMapping(path = "/selection")
     public List<Onderwerp> getSelection(Principal principal){
         List<Onderwerp> l = new ArrayList<>();
-        l.add(onderwerpservice.getOnderwerpById(gebruikerservice.findStudentByUsername(principal.getName()).getSelection().get(1)));
-        l.add(onderwerpservice.getOnderwerpById(gebruikerservice.findStudentByUsername(principal.getName()).getSelection().get(2)));
-        l.add(onderwerpservice.getOnderwerpById(gebruikerservice.findStudentByUsername(principal.getName()).getSelection().get(3)));
+        if(gebruikerservice.findStudentByUsername(principal.getName()).getSelection() != null){
+            l.add(onderwerpservice.getOnderwerpById(gebruikerservice.findStudentByUsername(principal.getName()).getSelection().get(1)));
+            l.add(onderwerpservice.getOnderwerpById(gebruikerservice.findStudentByUsername(principal.getName()).getSelection().get(2)));
+            l.add(onderwerpservice.getOnderwerpById(gebruikerservice.findStudentByUsername(principal.getName()).getSelection().get(3)));
+        }
         return l;
     }
 
