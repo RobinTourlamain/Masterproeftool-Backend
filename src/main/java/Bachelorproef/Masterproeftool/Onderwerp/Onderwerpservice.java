@@ -113,8 +113,8 @@ public class Onderwerpservice {
         return a;
     }
 
-    public void deleteFavoriteOnderwerp(Student g, Onderwerp o) {
-        g.getFavorites().remove(o.getId());
+    public void deleteFavoriteOnderwerp(Student g, Integer id) {
+        g.getFavorites().remove(id);
         ArrayList<Onderwerp> a = new ArrayList<>();
         for(Integer i : g.getFavorites()){
             a.add(onderwerprepository.getById(i));

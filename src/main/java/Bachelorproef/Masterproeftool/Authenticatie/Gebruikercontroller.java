@@ -94,9 +94,9 @@ public class Gebruikercontroller {
     }
 
     @DeleteMapping(path = "/deletefavoriet/{id}")
-    public Onderwerp deleteFavoriteOnderwerp(@PathVariable int id, Principal principal) {
+    public Onderwerp deleteFavoriteOnderwerp(@PathVariable Integer id, Principal principal) {
         Onderwerp o = onderwerpservice.getOnderwerpById(id);
-        onderwerpservice.deleteFavoriteOnderwerp(gebruikerservice.findStudentByUsername(principal.getName()),o);
+        onderwerpservice.deleteFavoriteOnderwerp(gebruikerservice.findStudentByUsername(principal.getName()),id);
         return o;
     }
 
