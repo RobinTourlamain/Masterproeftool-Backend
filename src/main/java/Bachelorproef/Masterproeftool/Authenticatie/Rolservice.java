@@ -21,7 +21,7 @@ public class Rolservice implements UserDetailsService {
 
     public Gebruiker saveGebruiker(Gebruiker g){
         log.info("saving new user to database");
-        return gebruikerservice.saveGebruiker(g);
+        return gebruikerservice.saveNewGebruiker(g);
     }
 
     public Rol saveRol(Rol r){

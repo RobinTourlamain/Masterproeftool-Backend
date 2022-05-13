@@ -29,8 +29,11 @@ public class Gebruikerservice {
     }
     public Student findStudentByUsername(String username){return gebruikerrepository.findStudentByUsername(username);}
 
-    public Gebruiker saveGebruiker(Gebruiker g) {
+    public Gebruiker saveNewGebruiker(Gebruiker g) {
         g.setPassword(passwordEncoder.encode(g.getPassword()));
+        return gebruikerrepository.save(g);
+    }
+    public Gebruiker saveGebruiker(Gebruiker g) {
         return gebruikerrepository.save(g);
     }
 
@@ -42,10 +45,7 @@ public class Gebruikerservice {
         gebruikerrepository.save(g);
     }
 
-    public void deleteFavoriteOnderwerp(Student g, Onderwerp o) {
-        g.getFavorites().remove(o);
-        gebruikerrepository.save(g);
-    }
+
 
     public void selectOnderwerpen(Student g, Map l) {
         g.setSelection(l);

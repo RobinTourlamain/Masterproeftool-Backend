@@ -50,12 +50,12 @@ public class Gebruikercontroller {
 
     @PostMapping("/gebruikers/save")
     public ResponseEntity<Gebruiker> saveGebruiker(@RequestBody Gebruiker gebruiker){
-        return ResponseEntity.ok().body(gebruikerservice.saveGebruiker(gebruiker));
+        return ResponseEntity.ok().body(gebruikerservice.saveNewGebruiker(gebruiker));
     }
 
     @PostMapping("/gebruikers/savestudent")
     public ResponseEntity<Gebruiker> saveGebruiker(@RequestBody Student gebruiker){
-        return ResponseEntity.ok().body(gebruikerservice.saveGebruiker(gebruiker));
+        return ResponseEntity.ok().body(gebruikerservice.saveNewGebruiker(gebruiker));
     }
 
     @PostMapping("/rollen/save")
@@ -96,7 +96,7 @@ public class Gebruikercontroller {
     @DeleteMapping(path = "/deletefavoriet/{id}")
     public Onderwerp deleteFavoriteOnderwerp(@PathVariable int id, Principal principal) {
         Onderwerp o = onderwerpservice.getOnderwerpById(id);
-        gebruikerservice.deleteFavoriteOnderwerp(gebruikerservice.findStudentByUsername(principal.getName()),o);
+        onderwerpservice.deleteFavoriteOnderwerp(gebruikerservice.findStudentByUsername(principal.getName()),o);
         return o;
     }
 
@@ -211,7 +211,7 @@ public class Gebruikercontroller {
         if(bCryptPasswordEncoder.matches(op,op1)){
             log.info("wachtwoord matcht");
             g.setPassword(np);
-            return gebruikerservice.saveGebruiker(g);
+            return gebruikerservice.saveNewGebruiker(g);
         }
         else{
             log.info("wachtwoord matcht niet");
