@@ -20,6 +20,11 @@ class Config {
 
     private static final Logger log = LoggerFactory.getLogger(Config.class);
 
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
     @Bean //Dummydata
     CommandLineRunner initRollen(Rolservice rolservice, Gebruikerrepository gebruikerrepository, Onderwerpservice onderwerpservice) {
         return args -> {
@@ -59,8 +64,4 @@ class Config {
         };
     }
 
-    @Bean
-    PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
 }

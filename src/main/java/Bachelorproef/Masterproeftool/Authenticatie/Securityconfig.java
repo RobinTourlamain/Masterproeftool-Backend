@@ -2,7 +2,7 @@ package Bachelorproef.Masterproeftool.Authenticatie;
 
 import Bachelorproef.Masterproeftool.Authenticatie.Filter.CustomAuthenticationFilter;
 import Bachelorproef.Masterproeftool.Authenticatie.Filter.CustomAuthorizationFilter;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,13 +17,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
-@Configuration @EnableWebSecurity @RequiredArgsConstructor
+@Configuration @EnableWebSecurity
 public class Securityconfig extends WebSecurityConfigurerAdapter {
+
+    public Securityconfig(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
     @Bean
     public UserDetailsService userDetailsService(){
         return new Gebruikerdetailsservice();
     }
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
