@@ -55,6 +55,9 @@ public class Securityconfig extends WebSecurityConfigurerAdapter {
 //        http.requiresChannel().anyRequest().requiresSecure(); //https verplicht
 //        http.portMapper()
 //                .http(8080).mapsTo(8443);
+        http.requiresChannel()
+                .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
+                .requiresSecure(); //https op heroku
     }
 
     @Bean
