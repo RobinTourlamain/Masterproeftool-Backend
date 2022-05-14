@@ -6,6 +6,7 @@ import Bachelorproef.Masterproeftool.Onderwerp.Onderwerp;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,8 @@ public class Student extends Gebruiker {
             name = "OnderwerpSelection",
             joinColumns = @JoinColumn(name = "Gebruiker_id"),
             inverseJoinColumns = @JoinColumn(name = "onderwerp_id"))
-    private Map<Integer,Onderwerp> selection = new HashMap<>();
+    //private Map<Integer,Onderwerp> selection = new HashMap<>();
+    private Collection<Onderwerp> selection = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "onderwerp_id")
@@ -56,7 +58,7 @@ public class Student extends Gebruiker {
         return favorites.stream().map(Onderwerp::getId).collect(Collectors.toList());
     }
 
-    public Map<Integer, Integer> getSelection() {
+    /*public Map<Integer, Integer> getSelection() {
         Map<Integer,Integer> m = new HashMap<>();
         if(!selection.isEmpty()){
             for(Integer i : selection.keySet()){
@@ -64,8 +66,17 @@ public class Student extends Gebruiker {
             }
         }
         return m;
-    }
+    }*/
 
+    public ArrayList<Integer> getSelection() {
+        ArrayList<Integer> a = new ArrayList<>();
+        if(!selection.isEmpty()) {
+            for (Onderwerp o : selection) {
+                a.add(o.getId());
+            }
+        }
+        return a;
+    }
     public int getToegewezen() {
         if(toegewezen != null){
             return toegewezen.getId();
