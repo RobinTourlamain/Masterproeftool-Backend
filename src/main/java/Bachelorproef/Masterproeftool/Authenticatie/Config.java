@@ -3,6 +3,8 @@ package Bachelorproef.Masterproeftool.Authenticatie;
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Company;
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Promotor;
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
+import Bachelorproef.Masterproeftool.Onderwerp.Onderwerp;
+import Bachelorproef.Masterproeftool.Onderwerp.Onderwerprepository;
 import Bachelorproef.Masterproeftool.Onderwerp.Onderwerpservice;
 import com.github.javafaker.Faker;
 import org.slf4j.Logger;
@@ -10,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -24,7 +27,7 @@ class Config {
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
+    @Order(1)
     @Bean //Dummydata
     CommandLineRunner initRollen(Rolservice rolservice, Gebruikerrepository gebruikerrepository, Onderwerpservice onderwerpservice) {
         return args -> {
@@ -61,6 +64,24 @@ class Config {
                 rolservice.addRolToGebruiker(un, "Student");
             }
 
+        };
+    }
+    @Order(2)
+    @Bean
+    CommandLineRunner initDatabase(Onderwerprepository repository, Gebruikerservice gebruikerservice) {
+        //voeg onderwerpen toe naar wens
+        return args -> {
+            log.info("Preloading " + repository.save(new Onderwerp("gebtest","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("IT","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("A","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Elektronica onderzoek 1","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Elektronica onderzoek 2","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Elektronica onderzoek 3","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("High programming","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Datastructuren onderzoeken","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Digitaal ontwerp","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Databanken","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Systeem- en netwerkbeheervisu","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
         };
     }
 
