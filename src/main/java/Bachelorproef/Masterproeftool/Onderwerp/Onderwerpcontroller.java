@@ -81,4 +81,9 @@ public class Onderwerpcontroller {
     public ArrayList<ArrayList<Student>> getAllSelection(){
         return onderwerpservice.getAllSelection();
     }
+
+    @GetMapping("/promotoronderwerpen")
+    public Collection<Onderwerp> getPromotoronderwerpen(Principal principal){
+        return onderwerpservice.getPromotorOnderwerpen(principal.getName());
+    }
 }

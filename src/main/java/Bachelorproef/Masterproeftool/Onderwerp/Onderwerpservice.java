@@ -140,4 +140,8 @@ public class Onderwerpservice {
         g.setFavorites(a);
         gebruikerservice.saveGebruiker(g);
     }
+
+    public Collection<Onderwerp> getPromotorOnderwerpen(String name) {
+        return onderwerprepository.findByPromotorEquals(gebruikerservice.findByUsername(name));
+    }
 }
