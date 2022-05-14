@@ -150,5 +150,7 @@ public class Onderwerpservice {
     public Collection<Onderwerp> getPromotorOnderwerpen(String name) {
         return onderwerprepository.findByPromotorEquals(gebruikerservice.findByUsername(name));
     }
-
+    public Collection<Onderwerp> getBedrijfOnderwerpen(String name) {
+        return onderwerprepository.findByBedrijfEquals(gebruikerservice.findByUsername(name));
+    }
 }

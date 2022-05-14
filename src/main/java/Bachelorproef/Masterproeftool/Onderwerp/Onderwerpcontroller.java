@@ -86,4 +86,8 @@ public class Onderwerpcontroller {
     public Collection<Onderwerp> getPromotoronderwerpen(Principal principal){
         return onderwerpservice.getPromotorOnderwerpen(principal.getName());
     }
+    @GetMapping("/bedrijfonderwerpen")
+    public Collection<Onderwerp> getBedrijfOnderwerpen(Principal principal){
+        return onderwerpservice.getBedrijfOnderwerpen(principal.getName());
+    }
 }

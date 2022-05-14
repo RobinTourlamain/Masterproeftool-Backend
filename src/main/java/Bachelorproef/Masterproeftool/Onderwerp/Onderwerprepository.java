@@ -13,4 +13,5 @@ public interface Onderwerprepository extends JpaRepository<Onderwerp, Integer> {
     Onderwerp queryById(int id);
 
     Collection<Onderwerp> findByPromotorEquals(Gebruiker promotor);
+    Collection<Onderwerp> findByBedrijfEquals(Gebruiker byUsername);
 }
