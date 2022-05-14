@@ -192,6 +192,11 @@ public class Gebruikercontroller {
         return onderwerpservice.boostStudent(oid, sid);
     }
 
+    @PostMapping("/ontboost/{oid}/{sid}")
+    public Onderwerp ontBoostStudent(@PathVariable int oid, @PathVariable long sid){
+        return onderwerpservice.ontBoostStudent(oid,sid);
+    }
+
     @PostMapping("/toewijzen/{oid}/{sid}")
     public Student wijsToe(@PathVariable int oid, @PathVariable long sid){
         return onderwerpservice.wijsToe(oid, sid);

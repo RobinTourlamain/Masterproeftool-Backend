@@ -107,6 +107,12 @@ public class Onderwerpservice {
         return o;
     }
 
+    public Onderwerp ontBoostStudent(int oid, long sid) {
+        Onderwerp o = onderwerprepository.queryById(oid);
+        o.setBoosted(null);
+        return onderwerprepository.save(o);
+    }
+
     public Student wijsToe(int oid, long sid) {
         Onderwerp o = onderwerprepository.queryById(oid);
         if(o.getToegewezen().size() < o.getCapacity()){
@@ -144,4 +150,5 @@ public class Onderwerpservice {
     public Collection<Onderwerp> getPromotorOnderwerpen(String name) {
         return onderwerprepository.findByPromotorEquals(gebruikerservice.findByUsername(name));
     }
+
 }
