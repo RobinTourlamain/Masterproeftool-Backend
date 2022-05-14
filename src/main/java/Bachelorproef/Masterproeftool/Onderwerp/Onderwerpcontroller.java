@@ -53,6 +53,10 @@ public class Onderwerpcontroller {
     Company addOnderwerpBedrijf(@RequestBody Onderwerp tempOnderwerp, @PathVariable int promotorid, Principal principal){
         return onderwerpservice.voegOnderwerpToeBedrijf(tempOnderwerp, promotorid, principal.getName());
     }
+    @PostMapping("/addonderwerpmetbedrijf/{pid}/{cid}")
+    Onderwerp addOnderwerpMetBedrijf(@RequestBody Onderwerp tempOnderwerp, @PathVariable int pid, @PathVariable long cid){
+        return onderwerpservice.voegBedrijfOnderwerpToe(tempOnderwerp,pid,cid);
+    }
     @DeleteMapping(path = "/onderwerpen/{id}")
     void deleteOnderwerp(@PathVariable int id) {
         onderwerpservice.deleteOnderwerp(id);

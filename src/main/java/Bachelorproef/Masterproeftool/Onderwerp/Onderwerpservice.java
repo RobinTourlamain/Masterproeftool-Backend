@@ -1,6 +1,5 @@
 package Bachelorproef.Masterproeftool.Onderwerp;
 
-import Bachelorproef.Masterproeftool.Authenticatie.Gebruiker;
 import Bachelorproef.Masterproeftool.Authenticatie.Gebruikerservice;
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Company;
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class Onderwerpservice {
@@ -47,6 +45,18 @@ public class Onderwerpservice {
 //            c.getOnderwerpen().add(o);
 //            gebruikerservice.saveGebruiker(c);
             return c;
+        }
+    }
+
+    public Onderwerp voegBedrijfOnderwerpToe(Onderwerp o,int pid, long cid) {
+        if(gebruikerservice.findById(pid).isEmpty()){
+            throw new Promotornotfoundexception(pid);
+        }
+        else{
+            o.setPromotor(gebruikerservice.findById(pid).orElse(gebruikerservice.findByUsername("Admin")));
+            Company c  = gebruikerservice.findCompanyById(cid);
+            o.setBedrijf(c);
+            return onderwerprepository.save(o);
         }
     }
 

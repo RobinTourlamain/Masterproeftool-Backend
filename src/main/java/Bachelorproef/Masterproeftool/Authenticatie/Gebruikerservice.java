@@ -88,4 +88,8 @@ public class Gebruikerservice {
     public Collection<Onderwerp> bedrijfToegewezen(Company c) {
         return c.getOnderwerpen().stream().filter(o -> !o.getToegewezen().isEmpty()).collect(Collectors.toList());
     }
+
+    public Company findCompanyById(long cid) {
+        return gebruikerrepository.findCompanyById(cid);
+    }
 }

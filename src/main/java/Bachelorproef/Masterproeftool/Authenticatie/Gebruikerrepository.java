@@ -18,4 +18,5 @@ public interface Gebruikerrepository extends JpaRepository<Gebruiker, Long> {
 
     Company findCompanyByUsername(String name);
 
+    Company findCompanyById(long cid);
 }
