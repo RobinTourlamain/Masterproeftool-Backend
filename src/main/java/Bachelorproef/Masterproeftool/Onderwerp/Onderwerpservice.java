@@ -103,8 +103,7 @@ public class Onderwerpservice {
     public Onderwerp boostStudent(int oid, long sid) {
         Onderwerp o = onderwerprepository.queryById(oid);
         o.setBoosted(gebruikerservice.findStudentById(sid));
-        onderwerprepository.save(o);
-        return o;
+        return onderwerprepository.save(o);
     }
 
     public Onderwerp ontBoostStudent(int oid, long sid) {
