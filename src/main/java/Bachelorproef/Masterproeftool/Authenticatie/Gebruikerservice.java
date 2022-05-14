@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,12 +46,20 @@ public class Gebruikerservice {
 
 
 
-    public void selectOnderwerpen(Student g, Map l) {
+    /*public void selectOnderwerpen(Student g, Map l) {
         g.setSelection(l);
+        gebruikerrepository.save(g);
+    }*/
+    public void selectOnderwerpen(Student g, ArrayList<Onderwerp> a) {
+        g.setSelection(a);
         gebruikerrepository.save(g);
     }
 
-    public Map<Integer,Integer> getSelection(Student g){
+    /*public Map<Integer,Integer> getSelection(Student g){
+        return g.getSelection();
+    }*/
+
+    public ArrayList<Integer> getSelection(Student g) {
         return g.getSelection();
     }
 

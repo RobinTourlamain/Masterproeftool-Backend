@@ -99,7 +99,7 @@ public class Gebruikercontroller {
         return onderwerpservice.getOnderwerpById(id);
     }
 
-    @PostMapping(path = "/addselection/{i1}/{i2}/{i3}")
+    /*@PostMapping(path = "/addselection/{i1}/{i2}/{i3}")
     public void addSelection(@PathVariable int i1,@PathVariable int i2,@PathVariable int i3, Principal principal){
         Map<Integer,Onderwerp> m = new HashMap<>();
         m.put(1,onderwerpservice.getOnderwerpById(i1));
@@ -107,9 +107,18 @@ public class Gebruikercontroller {
         m.put(3,onderwerpservice.getOnderwerpById(i3));
 
         gebruikerservice.selectOnderwerpen(gebruikerservice.findStudentByUsername(principal.getName()), m);
+    }*/
+
+    @PostMapping(path = "/addselection/{i1}/{i2}/{i3}")
+    public void addSelection(@PathVariable int i1,@PathVariable int i2,@PathVariable int i3, Principal principal){
+        ArrayList<Onderwerp> a  = new ArrayList<>();
+        a.add(onderwerpservice.getOnderwerpById(i1));
+        a.add(onderwerpservice.getOnderwerpById(i2));
+        a.add(onderwerpservice.getOnderwerpById(i3));
+        gebruikerservice.selectOnderwerpen(gebruikerservice.findStudentByUsername(principal.getName()), a);
     }
 
-    @GetMapping(path = "/selection")
+    /*@GetMapping(path = "/selection")
     public List<Onderwerp> getSelection(Principal principal){
         List<Onderwerp> l = new ArrayList<>();
         if(!gebruikerservice.findStudentByUsername(principal.getName()).getSelection().isEmpty()){
@@ -118,7 +127,19 @@ public class Gebruikercontroller {
             l.add(onderwerpservice.getOnderwerpById(gebruikerservice.findStudentByUsername(principal.getName()).getSelection().get(3)));
         }
         return l;
+    }*/
+
+    @GetMapping(path = "/selection")
+    public List<Onderwerp> getSelection(Principal principal){
+        List<Onderwerp> l = new ArrayList<>();
+        if(!gebruikerservice.findStudentByUsername(principal.getName()).getSelection().isEmpty()){
+            l.add(onderwerpservice.getOnderwerpById(gebruikerservice.findStudentByUsername(principal.getName()).getSelection().get(0)));
+            l.add(onderwerpservice.getOnderwerpById(gebruikerservice.findStudentByUsername(principal.getName()).getSelection().get(1)));
+            l.add(onderwerpservice.getOnderwerpById(gebruikerservice.findStudentByUsername(principal.getName()).getSelection().get(2)));
+        }
+        return l;
     }
+
 
     @GetMapping("/refreshtoken")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -30,23 +30,23 @@ public class Phaseservice {
         LocalDateTime endP4 = p.getEndP4();
         LocalDateTime endP5 = p.getEndP5();
         LocalDateTime now = LocalDateTime.now();
-        if(now.isBefore(startP1)||now.isAfter(endP3)){
+        if(now.isBefore(startP1)||now.isAfter(endP4)){
             s += "None";
         }
         else if(now.isAfter(startP1) && now.isBefore(endP1)){
-            s += "P1";
+            s += "Subjects";
         }
         else if(now.isAfter(endP1) && now.isBefore(endP2)){
-            s += "P2";
+            s += "Choice";
         }
         else if(now.isAfter(endP2) && now.isBefore(endP3)){
-            s += "P3";
+            s += "Boost";
         }
         else if(now.isAfter(endP3) && now.isBefore(endP4)){
-            s += "P4";
+            s += "Assign";
         }
         else{
-            s += "P5";
+            s += "Rest";
         }
         return s;
     }

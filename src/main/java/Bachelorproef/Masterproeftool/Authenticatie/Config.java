@@ -36,6 +36,7 @@ class Config {
             rolservice.saveGebruiker(new Student( "achternaam","email","root", new ArrayList<>(), "voornaam"));
             rolservice.saveGebruiker(new Company( "Telenet","telenetemail","root", new ArrayList<>(),"Brahm","Gert",  "phone",  "sector",  "address",  "website"));
             rolservice.saveGebruiker(new Promotor( "Vorstermans","amail","root", new ArrayList<>(),"annemie"));
+            rolservice.saveGebruiker(new Promotor("Wauters", "tony.wauters@kuleuven.be", "root", new ArrayList<>(), "Tony"));
 
 
             rolservice.addRolToGebruiker("Admin", "Admin");
@@ -43,6 +44,7 @@ class Config {
             rolservice.addRolToGebruiker("Remail", "Student");
             rolservice.addRolToGebruiker("Coordinator", "Coordinator");
             rolservice.addRolToGebruiker("email", "Student");
+            rolservice.addRolToGebruiker("tony.wauters@kuleuven.be", "Promotor");
             rolservice.addRolToGebruiker("telenetemail", "Bedrijf");
             rolservice.addRolToGebruiker("amail", "Promotor");
 
