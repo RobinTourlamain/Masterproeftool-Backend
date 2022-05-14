@@ -207,6 +207,10 @@ public class Gebruikercontroller {
     public ResponseEntity<List<Gebruiker>> getPromotoren(){
         return ResponseEntity.ok().body(gebruikerservice.findAllPromotoren());
     }
+    @GetMapping("/bedrijven")
+    public ResponseEntity<List<Gebruiker>> getBedrijven(){
+        return ResponseEntity.ok().body(gebruikerservice.findAllCompanies());
+    }
 
     @PostMapping("/boost/{oid}/{sid}")
     public Onderwerp boostStudent(@PathVariable int oid, @PathVariable long sid){

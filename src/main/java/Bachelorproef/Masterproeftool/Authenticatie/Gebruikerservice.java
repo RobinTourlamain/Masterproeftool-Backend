@@ -66,6 +66,9 @@ public class Gebruikerservice {
     public List<Gebruiker> findAllPromotoren() {
         return gebruikerrepository.findByRollenContaining(rolrepository.findByName("Promotor"));
     }
+    public List<Gebruiker> findAllCompanies() {
+        return gebruikerrepository.findByRollenContaining(rolrepository.findByName("Bedrijf"));
+    }
 
     public Optional<Gebruiker> findById(int promotorid) {
         return gebruikerrepository.findById((long) promotorid);
