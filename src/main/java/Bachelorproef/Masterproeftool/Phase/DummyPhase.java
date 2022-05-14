@@ -13,12 +13,12 @@ import java.time.LocalDateTime;
 public class DummyPhase {
     private static final Logger log = LoggerFactory.getLogger(DummyPhase.class);
 
-//    @Bean
-//    CommandLineRunner initPhase(Phaserepository phaserepository) {
-//        return args -> {
-//            LocalDateTime n = LocalDateTime.now();
-//            log.info("Preloading " + phaserepository.save(new Phases(n,n.plusHours(1),n.plusHours(2),n.plusHours(3),n.plusHours(4),n.plusHours(5))));
-//        };
-//    }
+    @Bean
+    CommandLineRunner initPhase(Phaserepository phaserepository) {
+        return args -> {
+            LocalDateTime n = LocalDateTime.now();
+            log.info("Preloading " + phaserepository.save(new Phases(n,n.plusHours(1),n.plusHours(2),n.plusHours(3),n.plusHours(4),n.plusHours(5))));
+        };
+    }
 
 }
