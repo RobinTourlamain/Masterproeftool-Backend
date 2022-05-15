@@ -145,11 +145,19 @@ public class Gebruikercontroller {
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String refresh_token = "null";
         Cookie[] cookies = request.getCookies();
-        for(Cookie cookie: cookies){
-            if (cookie.getName().equals("refresh_token")){
-                refresh_token = cookie.getValue();
+        if(cookies != null){
+            for(Cookie cookie: cookies){
+                if (cookie.getName().equals("refresh_token")){
+                    refresh_token = cookie.getValue();
+                }
             }
         }
+        else{
+//            throw new RuntimeException("Refresh token is missing");
+            log.info("Refresh token is missing");
+        }
+
+
         //String authorizationHeader = request.getHeader(AUTHORIZATION);
         if(!refresh_token.equals("null")){
             try{
@@ -186,7 +194,8 @@ public class Gebruikercontroller {
             }
         }
         else {
-            throw new RuntimeException("Refresh token is missing");
+//            throw new RuntimeException("Refresh token is missing");
+            log.info("Refresh token is missing");
         }
     }
 
