@@ -28,6 +28,7 @@ public class Onderwerpservice {
         }
         else{
             tempOnderwerp.setPromotor(gebruikerservice.findById(promotorid).orElse(gebruikerservice.findByUsername("Admin")));
+            tempOnderwerp.setHideObject(true);
             return onderwerprepository.save(tempOnderwerp);
         }
     }
@@ -40,6 +41,7 @@ public class Onderwerpservice {
             tempOnderwerp.setPromotor(gebruikerservice.findById(promotorid).orElse(gebruikerservice.findByUsername("Admin")));
             Company c  = gebruikerservice.findCompanyByUsername(name);
             tempOnderwerp.setBedrijf(c);
+            tempOnderwerp.setHideObject(true);
             onderwerprepository.save(tempOnderwerp);
             Onderwerp o = onderwerprepository.queryById(tempOnderwerp.getId());
 //            c.getOnderwerpen().add(o);
@@ -56,6 +58,7 @@ public class Onderwerpservice {
             o.setPromotor(gebruikerservice.findById(pid).orElse(gebruikerservice.findByUsername("Admin")));
             Company c  = gebruikerservice.findCompanyById(cid);
             o.setBedrijf(c);
+            o.setHideObject(true);
             return onderwerprepository.save(o);
         }
     }
