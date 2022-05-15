@@ -112,13 +112,30 @@ public class Onderwerpservice {
 
     public Onderwerp boostStudent(int oid, long sid) {
         Onderwerp o = onderwerprepository.queryById(oid);
-        o.setBoosted(gebruikerservice.findStudentById(sid));
-        return onderwerprepository.save(o);
+        ArrayList<Student> a = new ArrayList<>();
+
+        if(o.getBoosted().size()<o.getCapacity()){
+            for(Long l : o.getBoosted()){
+                a.add(gebruikerservice.findStudentById(l));
+            }
+            a.add(gebruikerservice.findStudentById(sid));
+            o.setBoosted(a);
+            return onderwerprepository.save(o);
+        }
+        else{
+            throw new Onderwerpovercapacityexception();
+        }
     }
 
     public Onderwerp ontBoostStudent(int oid, long sid) {
         Onderwerp o = onderwerprepository.queryById(oid);
-        o.setBoosted(null);
+        List<Long> a = o.getBoosted();
+        a.remove(sid);
+        ArrayList<Student> n = new ArrayList<>();
+        for(Long l : a){
+            n.add(gebruikerservice.findStudentById(l));
+        }
+        o.setBoosted(n);
         return onderwerprepository.save(o);
     }
 

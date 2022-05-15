@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
@@ -57,9 +58,9 @@ public class Onderwerp {
     @ManyToMany(mappedBy = "selection")
     private Collection<Student> selected = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student boosted;
+    @ManyToMany
+    @JoinColumn(name = "boosted_student_id")
+    private Collection<Student> boosted = new ArrayList<>();
 
     @OneToMany(mappedBy = "toegewezen")
     private Collection<Student> toegewezen = new ArrayList<>();
@@ -154,16 +155,16 @@ public class Onderwerp {
         return toegewezen;
     }
 
-    public Object getBoosted() {
-        if(boosted != null){
-            return boosted.getId();
+    public List<Long> getBoosted() {
+        if(!boosted.isEmpty()){
+            return boosted.stream().map(Gebruiker::getId).collect(Collectors.toList());
         }
         else{
             return null;
         }
     }
 
-    public void setBoosted(Student s) {
+    public void setBoosted(ArrayList<Student> s) {
         boosted = s;
     }
     public Long getBedrijf(){
