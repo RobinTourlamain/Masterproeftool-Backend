@@ -84,6 +84,12 @@ public class Gebruikerservice {
         return gebruikerrepository.save(s);
     }
 
+    public Student ontWijsToe(Onderwerp o, long sid) {
+        Student s = gebruikerrepository.findStudentById(sid);
+        s.setToegewezen(null);
+        return gebruikerrepository.save(s);
+    }
+
     public Company findCompanyByUsername(String name) {
         return gebruikerrepository.findCompanyByUsername(name);
     }

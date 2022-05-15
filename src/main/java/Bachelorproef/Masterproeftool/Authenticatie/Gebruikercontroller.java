@@ -195,7 +195,7 @@ public class Gebruikercontroller {
         }
         else {
 //            throw new RuntimeException("Refresh token is missing");
-            log.info("Refresh token is missing");
+//            log.info("Refresh token is missing");
         }
     }
 
@@ -234,6 +234,11 @@ public class Gebruikercontroller {
     @PostMapping("/toewijzen/{oid}/{sid}")
     public Student wijsToe(@PathVariable int oid, @PathVariable long sid){
         return onderwerpservice.wijsToe(oid, sid);
+    }
+
+    @PostMapping("/onttoewijzen/{oid}/{sid}")
+    public Student ontwWijsToe(@PathVariable int oid, @PathVariable long sid){
+        return onderwerpservice.ontWijsToe(oid, sid);
     }
 
     @GetMapping("/gettoegewezen")

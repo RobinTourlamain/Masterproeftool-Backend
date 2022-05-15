@@ -151,6 +151,10 @@ public class Onderwerpservice {
             throw new Onderwerpovercapacityexception();
         }
     }
+    public Student ontWijsToe(int oid, long sid) {
+        Onderwerp o = onderwerprepository.queryById(oid);
+        return gebruikerservice.ontWijsToe(o,sid);
+    }
 
     public ArrayList<ArrayList<Student>> getAllSelection() {
         ArrayList<ArrayList<Student>> a = new ArrayList<>();
