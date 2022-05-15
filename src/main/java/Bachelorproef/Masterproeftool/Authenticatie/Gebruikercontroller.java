@@ -203,11 +203,13 @@ public class Gebruikercontroller {
     public void logOut(HttpServletRequest request, HttpServletResponse response) {
         //als de refreshtoken wordt opgeslagen in de databse moet deze ook hier verwijderd worden
         Cookie[] cookies = request.getCookies();
-        for(Cookie cookie: cookies) {
-            if(cookie.getName().equals("refresh_token")){
-                cookie.setPath("/");
-                cookie.setMaxAge(0);
-                response.addCookie(cookie);
+        if(cookies != null){
+            for(Cookie cookie: cookies) {
+                if(cookie.getName().equals("refresh_token")){
+                    cookie.setPath("/");
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                }
             }
         }
     }
