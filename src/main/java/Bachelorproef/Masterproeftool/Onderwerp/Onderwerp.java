@@ -156,12 +156,7 @@ public class Onderwerp {
     }
 
     public List<Long> getBoosted() {
-        if(!boosted.isEmpty()){
-            return boosted.stream().map(Gebruiker::getId).collect(Collectors.toList());
-        }
-        else{
-            return null;
-        }
+        return boosted.stream().map(Gebruiker::getId).collect(Collectors.toList());
     }
 
     public void setBoosted(ArrayList<Student> s) {
