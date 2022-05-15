@@ -1,6 +1,7 @@
 package Bachelorproef.Masterproeftool.Authenticatie;
 
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Company;
+import Bachelorproef.Masterproeftool.Authenticatie.Users.Coordinator;
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Promotor;
 import Bachelorproef.Masterproeftool.Authenticatie.Users.Student;
 import Bachelorproef.Masterproeftool.Onderwerp.Onderwerp;
@@ -40,7 +41,7 @@ class Config {
 
             rolservice.saveGebruiker(new Student( "Tourlamain","Remail","root", new ArrayList<>(),"Robin"));
             rolservice.saveGebruiker(new Gebruiker( "Admin", "Admin", "root", new ArrayList<>()));
-            rolservice.saveGebruiker(new Gebruiker( "Coordinator","Coordinator","root", new ArrayList<>()));
+            rolservice.saveGebruiker(new Coordinator( "Coordinator","Coordinator","root", new ArrayList<>(),"naam","phone",0,0 ));
             rolservice.saveGebruiker(new Student( "achternaam","email","root", new ArrayList<>(), "voornaam"));
             rolservice.saveGebruiker(new Company( "Telenet","telenetemail","root", new ArrayList<>(),"Brahm","Gert",  "phone",  "sector",  "address",  "website"));
             rolservice.saveGebruiker(new Promotor( "Vorstermans","amail","root", new ArrayList<>(),"annemie"));
