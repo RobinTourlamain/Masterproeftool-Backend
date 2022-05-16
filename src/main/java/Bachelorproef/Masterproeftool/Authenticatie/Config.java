@@ -29,7 +29,7 @@ class Config {
         return new BCryptPasswordEncoder();
     }
     @Order(1)
-    @Bean //Dummydata
+    @Bean
     CommandLineRunner initRollen(Rolservice rolservice, Gebruikerrepository gebruikerrepository, Onderwerpservice onderwerpservice) {
         return args -> {
             Faker f = new Faker();
