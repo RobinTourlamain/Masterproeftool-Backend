@@ -39,7 +39,9 @@ class Config {
             log.info("Preloading " + rolservice.saveRol(new Rol("Promotor")));
             log.info("Preloading " + rolservice.saveRol(new Rol("Bedrijf")));
 
-            rolservice.saveGebruiker(new Student( "Tourlamain","Remail","root", new ArrayList<>(),"Robin"));
+            rolservice.saveGebruiker(new Student( "Tourlamain","robin.tourlamain@student.kuleuven.be","root", new ArrayList<>(),"Robin"));
+            rolservice.saveGebruiker(new Student( "De Leersnyder","fien.deleersnyder@student.kuleuven.be","root", new ArrayList<>(),"Fien"));
+            rolservice.saveGebruiker(new Student( "Valckenier","emmy.valckenier@student.kuleuven.be","root", new ArrayList<>(),"Emmy"));
             rolservice.saveGebruiker(new Gebruiker( "Admin", "Admin", "root", new ArrayList<>()));
             rolservice.saveGebruiker(new Coordinator( "Coordinator","Coordinator","root", new ArrayList<>(),"naam","phone",0,0 ));
             rolservice.saveGebruiker(new Student( "achternaam","email","root", new ArrayList<>(), "voornaam"));
@@ -50,7 +52,9 @@ class Config {
 
             rolservice.addRolToGebruiker("Admin", "Admin");
             rolservice.addRolToGebruiker("Admin", "Student");
-            rolservice.addRolToGebruiker("Remail", "Student");
+            rolservice.addRolToGebruiker("robin.tourlamain@student.kuleuven.be", "Student");
+            rolservice.addRolToGebruiker("fien.deleersnyder@student.kuleuven.be", "Student");
+            rolservice.addRolToGebruiker("emmy.valckenier@student.kuleuven.be", "Student");
             rolservice.addRolToGebruiker("Coordinator", "Coordinator");
             rolservice.addRolToGebruiker("email", "Student");
             rolservice.addRolToGebruiker("tony.wauters@kuleuven.be", "Promotor");
@@ -72,9 +76,9 @@ class Config {
     CommandLineRunner initDatabase(Onderwerprepository repository, Gebruikerservice gebruikerservice) {
         //voeg onderwerpen toe naar wens
         return args -> {
-            log.info("Preloading " + repository.save(new Onderwerp("test","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("AI","doelgroep",gebruikerservice.findByUsername("tony.wauters@kuleuven.be"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
             log.info("Preloading " + repository.save(new Onderwerp("IT","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
-            log.info("Preloading " + repository.save(new Onderwerp("A","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Upscaling","doelgroep",gebruikerservice.findByUsername("tony.wauters@kuleuven.be"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
             log.info("Preloading " + repository.save(new Onderwerp("Elektronica onderzoek 1","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
             log.info("Preloading " + repository.save(new Onderwerp("Elektronica onderzoek 2","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",2,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
             log.info("Preloading " + repository.save(new Onderwerp("Elektronica onderzoek 3","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
