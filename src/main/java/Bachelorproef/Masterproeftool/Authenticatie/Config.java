@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 class Config {
@@ -76,17 +77,17 @@ class Config {
     CommandLineRunner initDatabase(Onderwerprepository repository, Gebruikerservice gebruikerservice) {
         //voeg onderwerpen toe naar wens
         return args -> {
-            log.info("Preloading " + repository.save(new Onderwerp("AI","doelgroep",gebruikerservice.findByUsername("tony.wauters@kuleuven.be"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
-            log.info("Preloading " + repository.save(new Onderwerp("IT","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
-            log.info("Preloading " + repository.save(new Onderwerp("Upscaling","doelgroep",gebruikerservice.findByUsername("tony.wauters@kuleuven.be"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
-            log.info("Preloading " + repository.save(new Onderwerp("Elektronica onderzoek 1","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
-            log.info("Preloading " + repository.save(new Onderwerp("Elektronica onderzoek 2","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",2,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
-            log.info("Preloading " + repository.save(new Onderwerp("Elektronica onderzoek 3","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
-            log.info("Preloading " + repository.save(new Onderwerp("High programming","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
-            log.info("Preloading " + repository.save(new Onderwerp("Datastructuren onderzoeken","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
-            log.info("Preloading " + repository.save(new Onderwerp("Digitaal ontwerp","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",2,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
-            log.info("Preloading " + repository.save(new Onderwerp("Databanken","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",2,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
-            log.info("Preloading " + repository.save(new Onderwerp("Systeem- en netwerkbeheervisu","doelgroep",gebruikerservice.findByUsername("amail"),"email","phone",1,"Beschrijving",new ArrayList<String>(),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("AI","IW E-ICT Gent",gebruikerservice.findByUsername("tony.wauters@kuleuven.be"),"tony.wauters@kuleuven.be","0475981642",1,"Beschrijving voor het onderwerp AI",new ArrayList<String>(List.of("Software Development")),new ArrayList<String>(List.of("Artificial intelligence")),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("IT","IW E-ICT Gent",gebruikerservice.findByUsername("amail"),"annemie.vorstermans@kuleuven.be","0479648355",1,"Beschrijving voor het onderwerp IT",new ArrayList<String>(List.of("Data Science and Engineering")),new ArrayList<String>(List.of("Computer")),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Upscaling","IW E-ICT Gent",gebruikerservice.findByUsername("tony.wauters@kuleuven.be"),"tony.wauters@kuleuven.be","0479648355",1,"Beschrijving voor het onderwerp upscaling",new ArrayList<String>(List.of("Systems Theory and Signal Processing")),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Elektronica onderzoek 1","IW E-ICT Gent",gebruikerservice.findByUsername("tony.wauters@kuleuven.be"),"tony.wauters@kuleuven.be","0475981642",1,"Beschrijving voor het onderwerp elektronica onderzoek 1",new ArrayList<String>(List.of("Computer Technique, Microcontrollers and Operating Systems", "Analog Electronics and Design")),new ArrayList<String>(List.of("OS", "New techniques", "Designing")),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Elektronica onderzoek 2","IW E-ICT Gent",gebruikerservice.findByUsername("tony.wauters@kuleuven.be"),"tony.wauters@kuleuven.be","0475981642",2,"Beschrijving voor het onderwerp elektronica onderzoek 2",new ArrayList<String>(List.of("Data Science and Engineering","Analog Electronics and Design","Digital Electronics and Design")),new ArrayList<String>(List.of("Digital", "Aanalog")),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Elektronica onderzoek 3","IW E-ICT Gent",gebruikerservice.findByUsername("tony.wauters@kuleuven.be"),"tony.wauters@kuleuven.be","0475981642",1,"Beschrijving voor het onderwerp elektronica onderzoek 3",new ArrayList<String>(List.of("Analog Electronics and Design")),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("High programming","IW E-ICT Gent",gebruikerservice.findByUsername("amail"),"annemie.vorstermans@kuleuven.be","0479648355",1,"Beschrijving voor het onderwerp high programming",new ArrayList<String>(List.of("Software Development")),new ArrayList<String>(List.of("Programming languages")),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Datastructuren onderzoeken","IW E-ICT Gent",gebruikerservice.findByUsername("amail"),"annemie.vorstermans@kuleuven.be","0479648355",1,"Beschrijving  voor het onderwerp datastructuren onderzoeken",new ArrayList<String>(List.of("Data Science and Engineering")),new ArrayList<String>(),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Digitaal ontwerp","IW E-ICT Gent",gebruikerservice.findByUsername("tony.wauters@kuleuven.be"),"tony.wauters@kuleuven.be","0475981642",2,"Beschrijving voor het onderwerp digitaal ontwerp",new ArrayList<String>(List.of("Digital Electronics and Design")),new ArrayList<String>(List.of("Designing")),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Databanken","IW E-ICT Gent",gebruikerservice.findByUsername("amail"),"annemie.vorstermans@kuleuven.be","0479648355",2,"Beschrijving voor het onderwerp databanken",new ArrayList<String>(List.of("Software Development")),new ArrayList<String>(List.of("SQL")),true)));
+            log.info("Preloading " + repository.save(new Onderwerp("Systeem- en netwerkbeheer","IW E-ICT Gent",gebruikerservice.findByUsername("amail"),"annemie.vorstermans@kuleuven.be","0479648355",1,"Beschrijving voor het onderwerp systeem-en netwerkbeheer",new ArrayList<String>(List.of("Tele and Data communication")),new ArrayList<String>(),true)));
         };
     }
 
